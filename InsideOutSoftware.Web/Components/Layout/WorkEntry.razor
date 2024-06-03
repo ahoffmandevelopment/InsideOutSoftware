@@ -1,0 +1,39 @@
+<div class="work-container">
+    
+    <div class="date">
+        
+        <p>@Dates</p>
+    </div>
+    
+    <div class="details">
+        
+        <a
+            href="@WebLink"
+            target="_blank">
+            @JobTitle
+        </a>
+        
+        <p>@Description</p>
+        
+        <p>@Techs</p>
+        
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Dates { get; set; }
+    
+    [Parameter]
+    public string JobTitle { get; set; }
+    
+    [Parameter]
+    public string Description { get; set; }
+    
+    [Parameter]
+    public string Techs { get; set; }
+    
+    [Parameter]
+    public string WebLink { get; set; }
+}
