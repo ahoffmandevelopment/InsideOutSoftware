@@ -1,0 +1,14 @@
+.work-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 35px;
+}
+
+.date {
+    grid-column: span 1 / span 1;
+}
+
+.details {
+    grid-column: span 3 / span 3;
+}
