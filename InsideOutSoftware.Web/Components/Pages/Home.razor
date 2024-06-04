@@ -1,35 +1,50 @@
 ﻿@page "/"
 
 
-<PageTitle>Andrew Hoffman - .NET Developer</PageTitle>
+<PageTitle>Andrew Hoffman</PageTitle>
 
 <h1>Andrew Hoffman</h1>
 
 <div>
     <h4>About</h4>
-    
+
     <p>I'm Andrew and I do things.</p>
 </div>
 
-<WorkEntry
-    Dates="2022 - Present"
-    JobTitle="Software Developer - Pixel and Texel"
-    Description="I did some really cool things."
-    Techs="Xamarin ~ .NET Maui ~ SQL Server"
-    WebLink="https://www.pixelandtexel.com/"/>
+<WorkEntry Dates="2022 - Present"
+           JobTitle="Software Developer - Pixel and Texel"
+           Description="I was responsible for a large front end and backend update on an existing Xamarin Forms app, as 
+           well as migrating that Xamarin Forms app to .NET MAUI. I was also responsible for updating
+           and maintaining an existing .NET Core API that serviced the Forms and MAUI apps. I was also in charge of
+           creating, updating, and maintaining build and release pipelines for the Apps and API in Azure Devops."
+           Techs=@(new List<string> { "Xamarin Forms", ".NET MAUI", "REST API", ".NET Core", ".NET 7", "GIT",
+                       "VS for Mac", "VS Code", "Jetbrains Rider", "C#"})
+           WebLink="https://www.pixelandtexel.com/" />
 
-<WorkEntry
-    Dates="2022 - Present"
-    JobTitle="Software Developer - Skyllful"
-    Description="I did some really cool things."
-    Techs="Xamarin ~ .NET Maui ~ SQL Server"
-    WebLink="https://www.skyllful.com/"/>
+<WorkEntry Dates="2019 - 2022"
+           JobTitle="Software Developer - Skyllful"
+           Description="I created an app in Xamarin Forms that recorded screenshots on a users phone and then exported
+           those screenshots into a Powerpoint slideshow. I also added new features to a Xamarin Forms app that allows
+           users to complete inspections on equipment while out in the field. I also create a suite of apps in Xamarin
+           Forms for warehouse workers to put and pick merchandise without requiring terminal access."
+           Techs=@(new List<string> { "Xamarin Forms", "REST API", ".NET Core", "GIT", "MVVMCross", "SQL", "SQL Server",
+                       "VS for Mac", "C#"})
+           WebLink="https://www.skyllful.com/" />
 
-<a
-    href="https://github.com/ahoffmandevelopment"
-    target="_blank">
-    
-    <img src="Icons/github-mark.svg" alt="Github SVG"/>
-</a>
+<WorkEntry Dates="2017 - 2019"
+           JobTitle="Software Developer - Andrew Hoffman Development"
+           Description="I was responsible for the creation of a Xamarin Forms app that allows users to complete
+           inspections on equipment while out in the field, along with it's associated API. I also continued and
+           finalized development on a Xamarin Forms app that displayed real time information from drilling wells."
+           Techs=@(new List<string> { "Xamarin Forms", "REST API", ".NET Core", "GIT", "MVVMCross", "SQL", "SQL Server",
+                       "VS for Mac", "C#"}) />
 
+<WorkEntry Dates="2015 - 2017"
+           JobTitle="Software Developer - PILR Tech"
+           Description="I began development on a Xamarin Forms app that displayed real time information from drilling
+           wells. I also created a SPA site that described a company led initiative. I also created a WPF desktop
+           application for troubleshooting why something isn't working based on the 5 Whys Process."
+           Techs=@(new List<string> { "Xamarin Forms", "REST API", "GIT", "ASP.NET MVC", "HTML & CSS", "Bootstrap"}) />
+
+<Links />
 
