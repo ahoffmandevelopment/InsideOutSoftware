@@ -6,4 +6,15 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+    <ItemGroup>
+      <None Remove="Models\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Models\" />
+    </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\Icons\github-mark.svg" />
+    </ItemGroup>
 </Project>
