@@ -15,11 +15,11 @@
 
 .links-a {
     display: block;
-    color: green;
+    color: rgba(255,255,255,.64);
 }
 
     .links-a:hover {
-        color: rgb(226 232 240);
+        color: white;
     }
     
 .links-svg {
