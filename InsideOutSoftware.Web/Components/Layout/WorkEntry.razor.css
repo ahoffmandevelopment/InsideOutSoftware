@@ -3,6 +3,7 @@
     width: 100%;
     grid-template-columns: repeat(4, 1fr);
     margin-bottom: 35px;
+    column-gap: 4%;
 }
 
 .date {
@@ -35,3 +36,16 @@
     align-items: center;
     display: flex;
 }
+
+.title-span {
+    vertical-align: sub;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+    a:hover {
+        text-decoration: underline;
+    }

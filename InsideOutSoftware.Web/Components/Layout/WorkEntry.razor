@@ -10,7 +10,15 @@
         <a
             href="@WebLink"
             target="_blank">
-            @JobTitle
+            
+            @if (string.IsNullOrWhiteSpace(WebLink))
+            {
+                <h2>@JobTitle</h2>
+            }
+            else
+            {
+                <h2 style="display: inline-block">@JobTitle</h2> <span class="material-symbols-outlined title-span">arrow_outward</span>
+            }
         </a>
         
         <p>@Description</p>

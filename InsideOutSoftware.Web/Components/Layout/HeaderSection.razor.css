@@ -1,0 +1,32 @@
+.header-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    width: 100%;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    margin-bottom: 35px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.header-img-container {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    grid-column: span 1 / span 1;
+    column-gap: 4%;
+}
+
+.header-img {
+    border-radius: 50%;
+    width: 80%;
+}
+
+.header-txt-container {
+    grid-column: span 3 / span 3;
+}
