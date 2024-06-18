@@ -1,0 +1,30 @@
+.project-entry-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 35px;
+    column-gap: 4%;
+}
+
+    .project-entry-container:hover {
+        background-color: rgba(45, 212, 191, .1);
+        cursor: pointer;
+    }
+
+    .project-entry-container:hover .title {
+        color: rgb(94 234 212);
+    }
+
+.title {
+    grid-column: span 1 / span 1;
+}
+
+.img-container {
+    grid-column: span 3 / span 3;
+}
+
+.project-image {
+    display: block;
+    margin: 0 auto;
+    width: 280px;
+}

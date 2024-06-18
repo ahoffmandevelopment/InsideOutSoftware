@@ -1,0 +1,38 @@
+<div
+    class="project-entry-container"
+    @onclick="OnProjectEntryClicked">
+
+    <div class="title">
+
+        <p>@Title</p>
+    </div>
+
+    <div class="img-container">
+
+        <img
+            class="project-image"
+            src="@ImgSrc"
+            alt="@ImgAlt" />
+    </div>
+</div>
+
+@inject NavigationManager NavManager
+@code {
+
+    [Parameter]
+    public string ImgSrc { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string ImgAlt { get; set; }
+
+    [Parameter]
+    public string Link { get; set; }
+
+    private void OnProjectEntryClicked()
+    {
+        NavManager.NavigateTo("/MobileRT");
+    }
+}
