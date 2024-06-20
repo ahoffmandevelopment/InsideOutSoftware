@@ -16,9 +16,12 @@
     </div>
 </div>
 
-@inject NavigationManager NavManager
-@code {
+<Modal @ref="modal" />
 
+@typeparam TModalType
+@code {
+    private Modal modal = default!;
+    
     [Parameter]
     public string ImgSrc { get; set; }
 
@@ -30,9 +33,14 @@
 
     [Parameter]
     public string Link { get; set; }
+    
+    [Parameter]
+    public string ModalTitle { get; set; }
+    
+    
 
-    private void OnProjectEntryClicked()
+    private async Task OnProjectEntryClicked()
     {
-        NavManager.NavigateTo("/MobileRT");
+        await modal.ShowAsync<TModalType>("MobileRT WellData");
     }
 }
