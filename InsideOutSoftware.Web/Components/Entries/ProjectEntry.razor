@@ -16,7 +16,9 @@
     </div>
 </div>
 
-<Modal @ref="modal" />
+<Modal
+    @ref="modal"
+    Size="@ModalSize"/>
 
 @typeparam TModalType
 @code {
@@ -33,16 +35,12 @@
 
     [Parameter]
     public string Link { get; set; }
-    
-    [Parameter]
-    public string ModalTitle { get; set; }
 
     [Parameter]
     public ModalSize ModalSize { get; set; } = ModalSize.Regular;
 
     private async Task OnProjectEntryClicked()
     {
-        modal.Size = ModalSize;
-        await modal.ShowAsync<TModalType>("MobileRT WellData");
+        await modal.ShowAsync<TModalType>(Title);
     }
 }
