@@ -36,11 +36,13 @@
     
     [Parameter]
     public string ModalTitle { get; set; }
-    
-    
+
+    [Parameter]
+    public ModalSize ModalSize { get; set; } = ModalSize.Regular;
 
     private async Task OnProjectEntryClicked()
     {
+        modal.Size = ModalSize;
         await modal.ShowAsync<TModalType>("MobileRT WellData");
     }
 }
