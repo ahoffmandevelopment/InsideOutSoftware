@@ -22,7 +22,7 @@
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Blazor.Bootstrap" Version="3.0.0-preview.1" />
-      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" ExcludeAssets="All" />
     </ItemGroup>
     <ItemGroup>
       <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css" />
