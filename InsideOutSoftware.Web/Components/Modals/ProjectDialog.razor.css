@@ -7,6 +7,7 @@ img {
     display: block;
     margin: 10px auto;
     transition: transform .25s ease;
+    transform-origin: bottom;
 }
 
 img.img-top {
@@ -14,9 +15,13 @@ img.img-top {
 }
 
 img.img-bottom {
-    transform-origin: bottom;    
+    transform-origin: bottom;
 }
 
+img.img-border {
+    border: 1px solid black;
+    box-sizing: border-box;
+}
 img:hover {
     transform:scale(1.5);
 }

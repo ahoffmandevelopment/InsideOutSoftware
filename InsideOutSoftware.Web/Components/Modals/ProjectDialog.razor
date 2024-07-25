@@ -1,0 +1,70 @@
+<div class="container">
+    
+    <div class="row">
+        
+        <h2>@Description</h2>
+    </div>
+    
+    <div class="row">
+        @for (int i = 0; i < 3; i++)
+        {
+            <div class="col-md-4">
+                <img
+                    class="img-top @(Border ? "img-border" : "")"
+                    src="Images/@ImgFolder/@images[i].Name"
+                    alt="Project Image"/>
+            </div>
+        }
+    </div>
+
+    <div class="row">
+        @for (int i = 3; i < 5; i++)
+        {
+            <div class="col-md-6">
+                <img
+                    class="img-bottom @(Border ? "img-border" : "")"
+                    src="Images/@ImgFolder/@images[i].Name"
+                    alt="Project Image"/>
+            </div>
+        }
+    </div>
+</div>
+
+@code
+{
+    private FileInfo[] images { get; set; }
+    
+    [Parameter]
+    public string Description { get; set; }
+    
+    [Parameter]
+    public string ImgFolder { get; set; }
+    
+    [Parameter]
+    public string Link { get; set; }
+    
+    [Parameter]
+    public bool Border { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrWhiteSpace(ImgFolder))
+        {
+            var di = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", ImgFolder));
+            images = di.GetFiles();
+        }
+        
+        base.OnInitialized();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
