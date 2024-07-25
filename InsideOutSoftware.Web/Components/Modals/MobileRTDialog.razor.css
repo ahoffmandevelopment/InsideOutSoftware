@@ -10,6 +10,13 @@ img {
     transform-origin: bottom;
 }
 
+img.img-top {
+    transform-origin: top;
+}
+
+img.img-bottom {
+    transform-origin: bottom;
+}
 img:hover {
     transform:scale(1.5);
 }
