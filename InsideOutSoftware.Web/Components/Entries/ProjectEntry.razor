@@ -20,7 +20,6 @@
     @ref="modal"
     Size="@ModalSize"/>
 
-@typeparam TModalType
 @code {
     private Modal modal = default!;
     
@@ -35,12 +34,29 @@
 
     [Parameter]
     public string Link { get; set; }
+    
+    [Parameter]
+    public string Description { get; set; }
+    
+    [Parameter]
+    public string ImgFolder { get; set; }
 
     [Parameter]
-    public ModalSize ModalSize { get; set; } = ModalSize.Regular;
+    public ModalSize ModalSize { get; set; } = ModalSize.Large;
+    
+    [Parameter]
+    public bool Border { get; set; }
 
     private async Task OnProjectEntryClicked()
     {
-        await modal.ShowAsync<TModalType>(Title);
+        var parameters = new Dictionary<string, object>
+        {
+            { nameof(Description), Description },
+            { nameof(ImgFolder), ImgFolder },
+            { nameof(Link), Link},
+            { nameof(Border), Border }
+        };
+        
+        await modal.ShowAsync<ProjectDialog>(Title, parameters: parameters);
     }
 }
