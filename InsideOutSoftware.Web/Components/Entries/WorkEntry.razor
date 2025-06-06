@@ -1,45 +1,31 @@
-<div class="work-container">
-    
-    <div class="date">
-        
-        <p>@Dates</p>
+<div class="work-entry">
+    <div class="work-date">
+        <span>@Dates</span>
     </div>
     
-    <div class="details">
-        
-        <a
-            href="@WebLink"
-            target="_blank">
-            
-            @if (string.IsNullOrWhiteSpace(WebLink))
-            {
-                <h2>@JobTitle</h2>
-            }
-            else
-            {
-                <h2 style="display: inline-block">@JobTitle</h2> <span class="material-symbols-outlined title-span">arrow_outward</span>
-            }
+    <div class="work-details">
+        <a href="@WebLink" target="_blank" class="work-title-link">
+            <h3 class="work-title">
+                @JobTitle
+                @if (!string.IsNullOrWhiteSpace(WebLink))
+                {
+                    <span class="material-symbols-outlined title-span">arrow_outward</span>
+                }
+            </h3>
         </a>
         
-        <p>@Description</p>
+        <p class="work-description">@Description</p>
         
-        <ul class="tech-ul">
-
+        <ul class="tech-list">
             @foreach (var tech in Techs)
             {
-                <li class="tech-li">
-                        
-                    <div class="tech-div">
-                            @tech
-                    </div>
-                </li>
+                <li class="tech-item">@tech</li>
             }
         </ul>
     </div>
 </div>
 
 @code {
-
     [Parameter]
     public string Dates { get; set; }
     
