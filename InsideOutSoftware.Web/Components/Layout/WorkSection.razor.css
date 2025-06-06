@@ -1,3 +1,18 @@
-.work-container {
-    margin-bottom: 35px;
+.work-section {
+    margin-bottom: 5rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: rgba(94, 234, 212, 0.3);
 }

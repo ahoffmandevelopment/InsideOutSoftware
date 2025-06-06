@@ -1,18 +1,18 @@
-<div
-    class="project-entry-container"
-    @onclick="OnProjectEntryClicked">
-
-    <div class="title">
-
-        <p>@Title</p>
-    </div>
-
-    <div class="img-container">
-
+<div class="project-card" @onclick="OnProjectEntryClicked">
+    <div class="project-image-container">
         <img
             class="project-image"
             src="@ImgSrc"
             alt="@ImgAlt" />
+    </div>
+    
+    <div class="project-content">
+        <h3 class="project-title">@Title</h3>
+        <p class="project-description">@(Description.Length > 100 ? Description.Substring(0, 100) + "..." : Description)</p>
+        <div class="project-view">
+            <span>View Details</span>
+            <i class="bi bi-arrow-right"></i>
+        </div>
     </div>
 </div>
 

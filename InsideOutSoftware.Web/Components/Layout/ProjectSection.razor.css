@@ -1,0 +1,8 @@
+.projects-section {
+    margin-bottom: 5rem;
+}
+
+.projects-grid {
+    display: grid;
+    gap: 2rem;
+}

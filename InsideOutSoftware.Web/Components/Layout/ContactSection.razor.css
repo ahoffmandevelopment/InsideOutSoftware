@@ -1,52 +1,51 @@
-.about-section {
+.contact-section {
     margin-bottom: 5rem;
 }
 
-.about-content {
+.contact-content {
     max-width: 100%;
 }
 
-.about-content p {
+.contact-content p {
     font-size: 1.1rem;
     line-height: 1.8;
     margin-bottom: 2rem;
 }
 
-.skills-container {
-    margin-top: 2rem;
+.contact-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-.skills-container h3 {
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1.5rem;
-}
-
-.skill-item {
+.contact-method {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     background-color: rgba(45, 212, 191, 0.1);
     border-radius: 0.5rem;
+    color: rgb(94, 234, 212);
+    text-decoration: none;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.skill-item:hover {
+.contact-method:hover {
     transform: translateY(-5px);
     background-color: rgba(45, 212, 191, 0.2);
-}
-
-.skill-item i {
-    font-size: 1.5rem;
     color: rgb(94, 234, 212);
 }
 
-.skill-item span {
+.contact-method i {
+    font-size: 1.5rem;
+}
+
+.contact-method span {
     font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .contact-methods {
+        flex-direction: column;
+    }
 }
