@@ -3,6 +3,12 @@
 
 <div class="container mt-4">
     <div class="project-details">
+        <div class="mb-3">
+            <a href="/#projects" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Back to Projects
+            </a>
+        </div>
+        
         <div class="project-details-header">
             <h2>@Title</h2>
             <p>@Description</p>
@@ -16,8 +22,8 @@
         </div>
         
         <div class="project-gallery">
-            <div class="gallery-row">
-                @for (int i = 0; i < Math.Min(3, images.Length); i++)
+            <div class="gallery-grid">
+                @for (int i = 0; i < Math.Min(5, images.Length); i++)
                 {
                     <div class="gallery-item">
                         <img
@@ -27,28 +33,9 @@
                     </div>
                 }
             </div>
-        
-            @if (images.Length > 3)
-            {
-                <div class="gallery-row">
-                    @for (int i = 3; i < Math.Min(5, images.Length); i++)
-                    {
-                        <div class="gallery-item gallery-item-large">
-                            <img
-                                class="gallery-image @(Border ? "img-border" : "")"
-                                src="/Images/@ImgFolder/@images[i].Name"
-                                alt="Project Image"/>
-                        </div>
-                    }
-                </div>
-            }
         </div>
         
-        <div class="mt-4">
-            <a href="/#projects" class="btn btn-primary">
-                <i class="bi bi-arrow-left"></i> Back to Projects
-            </a>
-        </div>
+
     </div>
 </div>
 
