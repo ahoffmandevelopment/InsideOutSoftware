@@ -1,5 +1,9 @@
 @page "/project/{projectId}"
 @using System.IO
+@using System.Reflection
+@using InsideOutSoftware.Web.Models
+@using InsideOutSoftware.Web.Services
+@inject ProjectService ProjectService
 
 <div class="container mt-4">
     <div class="project-details">
@@ -10,76 +14,105 @@
         </div>
         
         <div class="project-details-header">
-            <h2>@Title</h2>
-            <p>@Description</p>
-            @if (!string.IsNullOrWhiteSpace(Link))
+            <h2>@project?.Title</h2>
+            <p>@project?.Description</p>
+            @if (!string.IsNullOrWhiteSpace(project?.Link))
             {
-                <a href="@Link" target="_blank" class="project-link">
+                <a href="@project.Link" target="_blank" class="project-link">
                     <span>Visit Project</span>
                     <i class="bi bi-box-arrow-up-right"></i>
                 </a>
             }
         </div>
         
-        <div class="project-gallery">
-            <div class="gallery-grid">
-                @for (int i = 0; i < Math.Min(5, images.Length); i++)
+        @if (project?.Type == ProjectType.ImageGallery)
+        {
+            <div class="project-gallery">
+                <div class="gallery-grid">
+                    @for (int i = 0; i < Math.Min(5, images.Length); i++)
+                    {
+                        <div class="gallery-item">
+                            <img
+                                class="gallery-image @(project.Border ? "img-border" : "")"
+                                src="/Images/@project.ImgFolder/@images[i].Name"
+                                alt="Project Image"/>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else if (project?.Type == ProjectType.WebComponent)
+        {
+            <div class="web-project-container">
+                @if (!string.IsNullOrEmpty(project.ComponentName))
                 {
-                    <div class="gallery-item">
-                        <img
-                            class="gallery-image @(Border ? "img-border" : "")"
-                            src="/Images/@ImgFolder/@images[i].Name"
-                            alt="Project Image"/>
+                    <DynamicComponent Type="@GetComponentType(project.ComponentName)" />
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        Component not found.
                     </div>
                 }
             </div>
-        </div>
-        
-
+        }
+        else if (project?.Type == ProjectType.HtmlProject)
+        {
+            <div class="web-project-container">
+                <HtmlProject ProjectUrl="@project.ProjectUrl" Title="@project.Title" />
+            </div>
+        }
     </div>
 </div>
 
 @code
 {
     private FileInfo[] images { get; set; } = Array.Empty<FileInfo>();
+    private ProjectModel project;
     
     [Parameter]
     public string ProjectId { get; set; }
     
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string ImgFolder { get; set; }
-    public string Link { get; set; }
-    public bool Border { get; set; }
-
-    // Dictionary to map project IDs to their details
-    private static readonly Dictionary<string, (string Title, string Description, string ImgFolder, string Link, bool Border)> ProjectMap = new()
-    {
-        { "pharmacy-app", ("Pharmacy App", "This Pharmacy App is an app built using Xamarin and .NET Maui to allow users to access their prescription history and refill prescriptions as needed.", "PharmacyApp", "", false) },
-        { "welldata-mobilert", ("WellData™ MobileRT", "WellData™ MobileRT was an app built using Xamarin Forms to monitor drilling rig information in real time.", "MobileRT", "", false) },
-        { "sharp-remote", ("Sharp Remote", "Sharp Remote was a personal project developed after my kids kept losing the TV remote. It uses web sockets to send remote commands to the TV, and a SQL Lite database to store custom buttons the user can set.", "SharpRemote", "", true) }
-    };
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
 
     protected override void OnInitialized()
     {
-        if (ProjectMap.TryGetValue(ProjectId, out var details))
+        project = ProjectService.GetProjectById(ProjectId);
+        
+        if (project != null && project.Type == ProjectType.ImageGallery && !string.IsNullOrWhiteSpace(project.ImgFolder))
         {
-            Title = details.Title;
-            Description = details.Description;
-            ImgFolder = details.ImgFolder;
-            Link = details.Link;
-            Border = details.Border;
-            
-            if (!string.IsNullOrWhiteSpace(ImgFolder))
+            var di = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", project.ImgFolder));
+            if (di.Exists)
             {
-                var di = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", ImgFolder));
-                if (di.Exists)
-                {
-                    images = di.GetFiles();
-                }
+                images = di.GetFiles();
             }
         }
         
         base.OnInitialized();
+    }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("window.scrollTo", 0, 0);
+        }
+        
+        await base.OnAfterRenderAsync(firstRender);
+    }
+    
+    private Type GetComponentType(string componentName)
+    {
+        try
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var type = assembly.GetType(componentName);
+            return type;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

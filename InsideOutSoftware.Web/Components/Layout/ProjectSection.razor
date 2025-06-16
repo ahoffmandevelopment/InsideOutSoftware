@@ -1,34 +1,20 @@
+@using InsideOutSoftware.Web.Services
+@inject ProjectService ProjectService
+
 <section id="projects" class="projects-section">
     <h2>Projects</h2>
     
     <div class="projects-grid">
-        <ProjectEntry
-            Title="Pharmacy App"
-            ImgSrc="Images/PharmacyApp/pharmacyApp01.png"
-            ImgAlt="PharmacyApp"
-            Description="This Pharmacy App is an app built using Xamarin and .NET Maui to allow users to access their 
-    prescription history and refill prescriptions as needed."
-            ImgFolder="PharmacyApp"
-            ProjectId="pharmacy-app"/>
-    
-        <ProjectEntry
-            Title="WellData&trade; MobileRT"
-            ImgSrc="Images/MobileRT/mobilert01.png"
-            ImgAlt="WellData MobileRT"
-            Description="WellData&trade; MobileRT was an app built using Xamarin Forms to
-                monitor drilling rig information in real time."
-            ImgFolder="MobileRT"
-            ProjectId="welldata-mobilert"/>
-    
-        <ProjectEntry
-            Title="Sharp Remote"
-            ImgSrc="Images/SharpRemote/sharpremote01.png"
-            ImgAlt="Sharp Remote"
-            Description="Sharp Remote was a personal project developed after my kids kept losing the TV remote.
-                
-                It uses web sockets to send remote commands to the TV, and a SQL Lite database to store custom buttons the user can set."
-            ImgFolder="SharpRemote"
-            Border="true"
-            ProjectId="sharp-remote"/>
+        @foreach (var project in ProjectService.GetAllProjects())
+        {
+            <ProjectEntry
+                Title="@project.Title"
+                ImgSrc="@project.ImgSrc"
+                ImgAlt="@project.ImgAlt"
+                Description="@project.Description"
+                ImgFolder="@project.ImgFolder"
+                Border="@project.Border"
+                ProjectId="@project.Id"/>
+        }
     </div>
 </section>

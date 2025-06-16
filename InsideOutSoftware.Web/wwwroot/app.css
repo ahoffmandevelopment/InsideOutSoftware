@@ -5,6 +5,7 @@
     --text-muted: rgba(255, 255, 255, 0.64);
     --background-color: #0f172a;
     --section-spacing: 5rem;
+    --container-width: 1140px;
 }
 
 /* Remove default focus outline */
@@ -78,7 +79,7 @@ section {
 }
 
 .container {
-    max-width: 800px;
+    max-width: var(--container-width);
     margin: 0 auto;
     padding: 0 1.5rem;
 }

@@ -1,4 +1,5 @@
 using InsideOutSoftware.Web.Components;
+using InsideOutSoftware.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddBlazorBootstrap();
+builder.Services.AddSingleton<ProjectService>();
 
 var app = builder.Build();
 

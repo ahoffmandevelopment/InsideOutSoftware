@@ -1,0 +1,140 @@
+@namespace InsideOutSoftware.Web.Components.WebProjects
+
+<div class="calculator-container">
+    <div class="calculator">
+        <div class="calculator-display">@displayValue</div>
+        <div class="calculator-buttons">
+            <button @onclick="() => HandleButtonClick7()" class="calculator-button">7</button>
+            <button @onclick="() => HandleButtonClick8()" class="calculator-button">8</button>
+            <button @onclick="() => HandleButtonClick9()" class="calculator-button">9</button>
+            <button @onclick="() => HandleButtonClickDivide()" class="calculator-button operator">÷</button>
+            
+            <button @onclick="() => HandleButtonClick4()" class="calculator-button">4</button>
+            <button @onclick="() => HandleButtonClick5()" class="calculator-button">5</button>
+            <button @onclick="() => HandleButtonClick6()" class="calculator-button">6</button>
+            <button @onclick="() => HandleButtonClickMultiply()" class="calculator-button operator">×</button>
+            
+            <button @onclick="() => HandleButtonClick1()" class="calculator-button">1</button>
+            <button @onclick="() => HandleButtonClick2()" class="calculator-button">2</button>
+            <button @onclick="() => HandleButtonClick3()" class="calculator-button">3</button>
+            <button @onclick="() => HandleButtonClickSubtract()" class="calculator-button operator">−</button>
+            
+            <button @onclick="() => HandleButtonClick0()" class="calculator-button zero">0</button>
+            <button @onclick="() => HandleButtonClickDecimal()" class="calculator-button">.</button>
+            <button @onclick="() => HandleButtonClickAdd()" class="calculator-button operator">+</button>
+            
+            <button @onclick="ClearDisplay" class="calculator-button clear">C</button>
+            <button @onclick="Calculate" class="calculator-button equals">=</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string displayValue = "0";
+    private string storedValue = "";
+    private string currentOperator = "";
+    private bool shouldResetDisplay = false;
+    
+    private void HandleButtonClick(string value)
+    {
+        if (shouldResetDisplay)
+        {
+            displayValue = "0";
+            shouldResetDisplay = false;
+        }
+        
+        switch (value)
+        {
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                storedValue = displayValue;
+                currentOperator = value;
+                shouldResetDisplay = true;
+                break;
+            case ".":
+                if (!displayValue.Contains("."))
+                {
+                    displayValue += ".";
+                }
+                break;
+            default:
+                if (displayValue == "0")
+                {
+                    displayValue = value;
+                }
+                else
+                {
+                    displayValue += value;
+                }
+                break;
+        }
+    }
+    
+    // Individual button handlers
+    private void HandleButtonClick0() => HandleButtonClick("0");
+    private void HandleButtonClick1() => HandleButtonClick("1");
+    private void HandleButtonClick2() => HandleButtonClick("2");
+    private void HandleButtonClick3() => HandleButtonClick("3");
+    private void HandleButtonClick4() => HandleButtonClick("4");
+    private void HandleButtonClick5() => HandleButtonClick("5");
+    private void HandleButtonClick6() => HandleButtonClick("6");
+    private void HandleButtonClick7() => HandleButtonClick("7");
+    private void HandleButtonClick8() => HandleButtonClick("8");
+    private void HandleButtonClick9() => HandleButtonClick("9");
+    private void HandleButtonClickDecimal() => HandleButtonClick(".");
+    private void HandleButtonClickAdd() => HandleButtonClick("+");
+    private void HandleButtonClickSubtract() => HandleButtonClick("-");
+    private void HandleButtonClickMultiply() => HandleButtonClick("*");
+    private void HandleButtonClickDivide() => HandleButtonClick("/");
+    
+    private void Calculate()
+    {
+        if (string.IsNullOrEmpty(currentOperator) || string.IsNullOrEmpty(storedValue))
+        {
+            return;
+        }
+        
+        double firstNumber = double.Parse(storedValue);
+        double secondNumber = double.Parse(displayValue);
+        double result = 0;
+        
+        switch (currentOperator)
+        {
+            case "+":
+                result = firstNumber + secondNumber;
+                break;
+            case "-":
+                result = firstNumber - secondNumber;
+                break;
+            case "*":
+                result = firstNumber * secondNumber;
+                break;
+            case "/":
+                if (secondNumber != 0)
+                {
+                    result = firstNumber / secondNumber;
+                }
+                else
+                {
+                    displayValue = "Error";
+                    return;
+                }
+                break;
+        }
+        
+        displayValue = result.ToString();
+        storedValue = "";
+        currentOperator = "";
+        shouldResetDisplay = true;
+    }
+    
+    private void ClearDisplay()
+    {
+        displayValue = "0";
+        storedValue = "";
+        currentOperator = "";
+        shouldResetDisplay = false;
+    }
+}
