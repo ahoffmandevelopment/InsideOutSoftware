@@ -17,6 +17,7 @@
 .project-image-container {
     overflow: hidden;
     height: 400px;
+    padding: 15px 0px;
 }
 
 .project-image {
