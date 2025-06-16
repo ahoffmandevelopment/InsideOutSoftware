@@ -1,3 +1,6 @@
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+
 <div class="project-card" @onclick="OnProjectEntryClicked">
     <div class="project-image-container">
         <img
@@ -16,12 +19,9 @@
     </div>
 </div>
 
-<Modal
-    @ref="modal"
-    Size="@ModalSize"/>
-
 @code {
-    private Modal modal = default!;
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
     
     [Parameter]
     public string ImgSrc { get; set; }
@@ -40,23 +40,20 @@
     
     [Parameter]
     public string ImgFolder { get; set; }
-
-    [Parameter]
-    public ModalSize ModalSize { get; set; } = ModalSize.Large;
     
     [Parameter]
     public bool Border { get; set; }
+    
+    [Parameter]
+    public string ProjectId { get; set; }
 
-    private async Task OnProjectEntryClicked()
+    private void OnProjectEntryClicked()
     {
-        var parameters = new Dictionary<string, object>
-        {
-            { nameof(Description), Description },
-            { nameof(ImgFolder), ImgFolder },
-            { nameof(Link), Link},
-            { nameof(Border), Border }
-        };
-        
-        await modal.ShowAsync<ProjectDialog>(Title, parameters: parameters);
+        // Generate a project ID if not provided
+        var id = !string.IsNullOrEmpty(ProjectId) 
+            ? ProjectId 
+            : Title.ToLower().Replace(" ", "-").Replace("™", "").Replace("&trade;", "");
+            
+        NavigationManager.NavigateTo($"/project/{id}");
     }
 }
