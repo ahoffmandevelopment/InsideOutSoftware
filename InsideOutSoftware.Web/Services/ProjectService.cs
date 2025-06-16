@@ -12,16 +12,6 @@ namespace InsideOutSoftware.Web.Services
             {
                 new ProjectModel
                 {
-                    Id = "html-glacier",
-                    Title = "Glacier Melt",
-                    ImgSrc = "Images/GlacierMelt/glaciermelt01.png",
-                    ImgAlt = "Glacier Melt",
-                    Description = "An interactive dashboard built with HTML, CSS, and JavaScript that visualizes global glacier retreat and its environmental impact from 1990 to 2024.",
-                    Type = ProjectType.HtmlProject,
-                    ProjectUrl = "/projects/glacier/glacier.html"
-                },
-                new ProjectModel
-                {
                     Id = "pharmacy-app",
                     Title = "Pharmacy App",
                     ImgSrc = "Images/PharmacyApp/pharmacyApp01.png",
@@ -50,6 +40,36 @@ namespace InsideOutSoftware.Web.Services
                     ImgFolder = "SharpRemote",
                     Border = true,
                     Type = ProjectType.ImageGallery
+                },
+                new ProjectModel
+                {
+                    Id = "html-glacier",
+                    Title = "Glacier Melt",
+                    ImgSrc = "Images/GlacierMelt/glaciermelt01.png",
+                    ImgAlt = "Glacier Melt",
+                    Description = "An interactive dashboard built with HTML, CSS, and JavaScript that visualizes global glacier retreat and its environmental impact from 1990 to 2024.",
+                    Type = ProjectType.HtmlProject,
+                    ProjectUrl = "/projects/glacier.html"
+                },
+                new ProjectModel
+                {
+                    Id = "html-news",
+                    Title = "News Explorer",
+                    ImgSrc = "Images/News/news01.png",
+                    ImgAlt = "News Explorer",
+                    Description = "A responsive news aggregator built with HTML, CSS, and JavaScript that fetches and displays current headlines from multiple sources with filtering and search capabilities.",
+                    Type = ProjectType.HtmlProject,
+                    ProjectUrl = "/projects/news.html"
+                },
+                new ProjectModel
+                {
+                    Id = "html-newsletterarchive",
+                    Title = "Newsletter Archive",
+                    ImgSrc = "Images/NewsletterArchive/newsletterarchive01.png",
+                    ImgAlt = "Newsletter Archive",
+                    Description = "A responsive newsletter archive system built with HTML, CSS, and JavaScript that allows users to browse and search through historical newsletters with categorization and filtering options.",
+                    Type = ProjectType.HtmlProject,
+                    ProjectUrl = "/projects/newsletterarchive.html"
                 }
             };
         }
