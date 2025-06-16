@@ -1,0 +1,16 @@
+@namespace InsideOutSoftware.Web.Components.WebProjects
+@inject IJSRuntime JSRuntime
+
+<div class="html-project-container">
+    <iframe src="@ProjectUrl" class="html-project-frame" title="@Title" scrolling="yes" @ref="iframeElement"></iframe>
+</div>
+
+@code {
+    private ElementReference iframeElement;
+    
+    [Parameter]
+    public string ProjectUrl { get; set; }
+    
+    [Parameter]
+    public string Title { get; set; }
+}
