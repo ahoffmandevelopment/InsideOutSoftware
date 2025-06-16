@@ -1,34 +1,15 @@
-.project-details {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.project-details-header {
-    margin-bottom: 2rem;
-}
-
-.project-details-header h2 {
-    margin-bottom: 1rem;
-}
-
 .project-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
     margin-bottom: 2rem;
 }
 
-.gallery-row {
-    display: flex;
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
 }
 
 .gallery-item {
-    flex: 1;
-}
-
-.gallery-item-large {
-    flex: 1;
+    width: 100%;
 }
 
 .gallery-image {
@@ -54,4 +35,13 @@
 
 .project-link:hover {
     text-decoration: underline;
+}
+
+/* Two columns in second row */
+.gallery-grid .gallery-item:nth-child(-n+3) {
+    grid-column: span 2;
+}
+
+.gallery-grid .gallery-item:nth-child(n+4) {
+    grid-column: span 3;
 }
