@@ -1,0 +1,98 @@
+@page "/project/{projectId}"
+@using System.IO
+
+<div class="container mt-4">
+    <div class="project-details">
+        <div class="project-details-header">
+            <h2>@Title</h2>
+            <p>@Description</p>
+            @if (!string.IsNullOrWhiteSpace(Link))
+            {
+                <a href="@Link" target="_blank" class="project-link">
+                    <span>Visit Project</span>
+                    <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+            }
+        </div>
+        
+        <div class="project-gallery">
+            <div class="gallery-row">
+                @for (int i = 0; i < Math.Min(3, images.Length); i++)
+                {
+                    <div class="gallery-item">
+                        <img
+                            class="gallery-image @(Border ? "img-border" : "")"
+                            src="/Images/@ImgFolder/@images[i].Name"
+                            alt="Project Image"/>
+                    </div>
+                }
+            </div>
+        
+            @if (images.Length > 3)
+            {
+                <div class="gallery-row">
+                    @for (int i = 3; i < Math.Min(5, images.Length); i++)
+                    {
+                        <div class="gallery-item gallery-item-large">
+                            <img
+                                class="gallery-image @(Border ? "img-border" : "")"
+                                src="/Images/@ImgFolder/@images[i].Name"
+                                alt="Project Image"/>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        
+        <div class="mt-4">
+            <a href="/#projects" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Back to Projects
+            </a>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private FileInfo[] images { get; set; } = Array.Empty<FileInfo>();
+    
+    [Parameter]
+    public string ProjectId { get; set; }
+    
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public string ImgFolder { get; set; }
+    public string Link { get; set; }
+    public bool Border { get; set; }
+
+    // Dictionary to map project IDs to their details
+    private static readonly Dictionary<string, (string Title, string Description, string ImgFolder, string Link, bool Border)> ProjectMap = new()
+    {
+        { "pharmacy-app", ("Pharmacy App", "This Pharmacy App is an app built using Xamarin and .NET Maui to allow users to access their prescription history and refill prescriptions as needed.", "PharmacyApp", "", false) },
+        { "welldata-mobilert", ("WellData™ MobileRT", "WellData™ MobileRT was an app built using Xamarin Forms to monitor drilling rig information in real time.", "MobileRT", "", false) },
+        { "sharp-remote", ("Sharp Remote", "Sharp Remote was a personal project developed after my kids kept losing the TV remote. It uses web sockets to send remote commands to the TV, and a SQL Lite database to store custom buttons the user can set.", "SharpRemote", "", true) }
+    };
+
+    protected override void OnInitialized()
+    {
+        if (ProjectMap.TryGetValue(ProjectId, out var details))
+        {
+            Title = details.Title;
+            Description = details.Description;
+            ImgFolder = details.ImgFolder;
+            Link = details.Link;
+            Border = details.Border;
+            
+            if (!string.IsNullOrWhiteSpace(ImgFolder))
+            {
+                var di = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", ImgFolder));
+                if (di.Exists)
+                {
+                    images = di.GetFiles();
+                }
+            }
+        }
+        
+        base.OnInitialized();
+    }
+}
