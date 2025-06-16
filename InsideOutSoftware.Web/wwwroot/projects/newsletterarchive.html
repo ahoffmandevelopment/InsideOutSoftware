@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Corporate Communications Archive</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(to bottom right, #0f172a, #111827, #1e293b);
+        min-height: 100vh;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1f2937;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #4b5563;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #6b7280;
+      }
+
+      .toggle-checkbox:checked {
+        right: 0;
+        border-color: #8b5cf6;
+      }
+      .toggle-checkbox:checked + .toggle-label {
+        background-color: #8b5cf6;
+      }
+
+      .newsletter-card {
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+        position: relative;
+      }
+      .newsletter-card:hover {
+        transform: none;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        border-left: 3px solid #8b5cf6;
+      }
+      .newsletter-card.active {
+        border: 2px solid #8b5cf6;
+        background-color: rgba(139, 92, 246, 0.1);
+        box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+      }
+
+      .text-high-contrast {
+        color: #f8fafc;
+      }
+
+      .preview-content {
+        line-height: 1.7;
+        letter-spacing: 0.01em;
+      }
+
+      .category-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-weight: 500;
+        font-size: 0.75rem;
+      }
+      .category-Finance {
+        background-color: rgba(6, 182, 212, 0.2);
+        color: #06b6d4;
+      }
+      .category-Technology {
+        background-color: rgba(139, 92, 246, 0.2);
+        color: #8b5cf6;
+      }
+      .category-Corporate {
+        background-color: rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+      }
+      .category-HR {
+        background-color: rgba(236, 72, 153, 0.2);
+        color: #ec4899;
+      }
+      .category-Marketing {
+        background-color: rgba(245, 158, 11, 0.2);
+        color: #f59e0b;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 0.125rem 0.5rem;
+        margin-right: 0.25rem;
+        margin-top: 0.25rem;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        background-color: rgba(71, 85, 105, 0.3);
+        color: #cbd5e1;
+      }
+
+      .card-excerpt {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.875rem;
+        color: #94a3b8;
+        margin-top: 0.5rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+      }
+
+      .card-glow:hover {
+        box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+      }
+
+      .filter-section {
+        transition: max-height 0.3s ease;
+        overflow: hidden;
+      }
+
+      .filter-section.collapsed {
+        max-height: 0;
+      }
+
+      .grid-comfortable {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .fullscreen-mode {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 50;
+        background-color: rgba(15, 23, 42, 0.98);
+        padding: 2rem;
+        overflow-y: auto;
+      }
+
+      .reading-progress {
+        height: 3px;
+        background-color: #8b5cf6;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        transition: width 0.1s ease;
+        z-index: 100;
+      }
+
+      @media (max-width: 1023px) {
+        #filter-section {
+          max-height: 0;
+          overflow: hidden;
+          padding: 0;
+          transition: all 0.3s ease;
+        }
+
+        #filter-section.expanded {
+          max-height: 1000px;
+          padding: 1rem;
+        }
+
+        .filter-toggle {
+          display: flex;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .preview-pane-mobile {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 80vh;
+          z-index: 40;
+          border-radius: 1rem 1rem 0 0;
+          transform: translateY(100%);
+          transition: transform 0.3s ease;
+        }
+
+        .preview-pane-mobile.active {
+          transform: translateY(0);
+        }
+
+        .mobile-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 30;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+          opacity: 1;
+          pointer-events: auto;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        #filter-section {
+          max-height: none !important;
+          padding: 1rem !important;
+          overflow: visible;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease forwards;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .spinner {
+        border: 3px solid rgba(139, 92, 246, 0.3);
+        border-radius: 50%;
+        border-top: 3px solid #8b5cf6;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+
+      .filter-container {
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        overflow: hidden;
+      }
+
+      .filter-container.collapsed {
+        max-height: 0;
+        opacity: 0;
+      }
+
+      .filter-container:not(.collapsed) {
+        max-height: 1000px;
+        opacity: 1;
+      }
+
+      .grid-comfortable {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+    </style>
+  </head>
+  <body class="text-gray-300">
+    <div class="min-h-screen flex flex-col p-4 sm:p-6 lg:p-8">
+      <header class="mb-8">
+        <h1
+          class="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200 mb-2"
+        >
+          Communications Archive
+        </h1>
+        <p class="text-lg text-gray-400">
+          Browse and search through all historical corporate newsletters.
+        </p>
+      </header>
+
+      <main class="flex-grow flex flex-col lg:flex-row">
+        <div class="lg:w-1/5 mb-6 lg:mb-0 lg:mr-6">
+          <div class="mb-6">
+            <div class="relative">
+              <input
+                type="text"
+                id="search"
+                placeholder="Search newsletters..."
+                class="w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm pl-10 focus:ring-purple-500 focus:border-purple-500 transition"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <button
+            id="show-saved-btn"
+            class="w-full mb-6 px-4 py-2 text-sm font-medium bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-md transition-colors shadow-md"
+          >
+            Show Saved
+          </button>
+
+          <button
+            id="filter-toggle"
+            class="filter-toggle w-full mb-4 px-3 py-1 text-sm font-medium bg-gray-800 text-gray-300 rounded-md flex items-center justify-center gap-1 lg:hidden"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              />
+            </svg>
+            Filters
+          </button>
+
+          <div
+            id="filter-section"
+            class="filter-section bg-gray-800/50 p-4 rounded-lg"
+          >
+            <div class="mb-6">
+              <div class="flex justify-between items-center mb-2">
+                <label
+                  for="category-filter"
+                  class="text-sm font-medium text-gray-400"
+                  >Categories</label
+                >
+                <button
+                  class="filter-toggle-btn text-gray-400 hover:text-white"
+                  data-target="category-filter-container"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div
+                id="category-filter-container"
+                class="filter-container collapsed"
+              >
+                <div
+                  id="category-filter"
+                  class="w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm p-2"
+                ></div>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <div class="flex justify-between items-center mb-2">
+                <label
+                  for="tag-filter"
+                  class="text-sm font-medium text-gray-400"
+                  >Tags</label
+                >
+                <button
+                  class="filter-toggle-btn text-gray-400 hover:text-white"
+                  data-target="tag-filter-container"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div id="tag-filter-container" class="filter-container collapsed">
+                <div
+                  id="tag-filter"
+                  class="w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm p-2"
+                ></div>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label
+                for="date-filter"
+                class="block text-sm font-medium text-gray-400 mb-2"
+                >Date Range</label
+              >
+              <select
+                id="date-filter"
+                class="w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 transition"
+              >
+                <option value="all">All Time</option>
+                <option value="last-month">Last Month</option>
+                <option value="last-quarter">Last Quarter</option>
+                <option value="last-year">Last Year</option>
+                <option value="custom">Custom Range</option>
+              </select>
+              <div
+                id="custom-date-range"
+                class="hidden mt-2 flex flex-col gap-2"
+              >
+                <input
+                  type="date"
+                  id="date-from"
+                  class="w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 transition text-sm p-1"
+                />
+                <input
+                  type="date"
+                  id="date-to"
+                  class="w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 transition text-sm p-1"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="sort-order"
+                class="block text-sm font-medium text-gray-400 mb-2"
+                >Sort By</label
+              >
+              <select
+                id="sort-order"
+                class="w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 transition"
+              >
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div
+          id="newsletter-grid-container"
+          class="lg:w-3/5 xl:w-3/5 h-[65vh] lg:h-auto overflow-y-auto"
+        >
+          <div id="newsletter-grid" class="grid grid-comfortable gap-5"></div>
+          <div id="no-results" class="hidden text-center py-20">
+            <h3 class="text-xl font-semibold text-white">
+              No Matching Newsletters Found
+            </h3>
+            <p class="text-gray-400 mt-2">
+              Try adjusting your search or filter criteria.
+            </p>
+          </div>
+        </div>
+
+        <div id="reading-progress" class="reading-progress"></div>
+
+        <aside
+          id="preview-pane"
+          class="preview-pane-mobile lg:w-1/3 xl:w-1/4 bg-gray-800 bg-opacity-90 backdrop-blur-sm rounded-lg p-6 flex flex-col shadow-2xl transition-all duration-300 h-[65vh] lg:h-auto border border-gray-700 lg:ml-6"
+        >
+          <div
+            id="preview-placeholder"
+            class="m-auto text-center text-gray-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="mx-auto h-12 w-12"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+            <p class="mt-4 font-medium">
+              Select a newsletter to preview its content here.
+            </p>
+          </div>
+          <div
+            id="preview-content"
+            class="hidden flex-grow flex flex-col overflow-hidden"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <h2
+                id="preview-title"
+                class="text-2xl font-bold text-high-contrast leading-tight"
+              ></h2>
+              <div class="flex items-center space-x-2">
+                <button
+                  id="fullscreen-btn"
+                  class="text-gray-500 hover:text-white transition-colors p-1"
+                  title="Fullscreen Mode"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"
+                    />
+                  </svg>
+                </button>
+                <button
+                  id="close-preview"
+                  class="text-gray-500 hover:text-white transition-colors p-1"
+                >
+                  &times;
+                </button>
+              </div>
+            </div>
+            <p id="preview-date" class="text-sm text-gray-400 mb-4"></p>
+            <div class="overflow-y-auto flex-grow pr-2">
+              <p
+                id="preview-body"
+                class="text-gray-300 whitespace-pre-line preview-content"
+              ></p>
+            </div>
+
+            <div
+              class="flex justify-between mt-6 pt-4 border-t border-gray-700"
+            >
+              <button
+                id="prev-newsletter"
+                class="text-sm text-gray-400 hover:text-white flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+                Previous
+              </button>
+              <button
+                id="next-newsletter"
+                class="text-sm text-gray-400 hover:text-white flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <div id="mobile-overlay" class="mobile-overlay"></div>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const newsletters = [
+          {
+            id: 1,
+            title: "Q1 2024 Performance Review",
+            date: "2024-04-15",
+            category: "Finance",
+            tags: ["quarterly", "report"],
+            content:
+              "Our first quarter results exceeded expectations, with a 15% growth in revenue. Key drivers included the successful launch of Project Phoenix and strong performance in the European market.\n\nLooking ahead, we are optimistic about Q2, with several major product updates in the pipeline. We thank all teams for their hard work and dedication.",
+          },
+          {
+            id: 2,
+            title: "Innovation Spotlight: AI Integration",
+            date: "2024-03-20",
+            category: "Technology",
+            tags: ["AI", "innovation"],
+            content:
+              "The R&D team has made significant strides in integrating artificial intelligence into our core product suite. This will unlock new levels of efficiency and personalization for our clients.\n\nA pilot program is scheduled to begin next month with a select group of enterprise partners.",
+          },
+          {
+            id: 3,
+            title: "Welcome to Our New CEO",
+            date: "2024-03-01",
+            category: "Corporate",
+            tags: ["leadership", "announcement"],
+            content:
+              "We are thrilled to welcome Jane Doe as the new Chief Executive Officer. Jane brings over 20 years of industry experience and a bold vision for the future. Please join us in extending a warm welcome to her.",
+          },
+          {
+            id: 4,
+            title: "Year-End Financial Summary 2023",
+            date: "2024-01-25",
+            category: "Finance",
+            tags: ["annual", "report"],
+            content:
+              "2023 was a landmark year for the company. We achieved record profits and expanded our market share by 5%. This success is a testament to the talent and commitment of our employees worldwide.",
+          },
+          {
+            id: 5,
+            title: "Introducing Our New Employee Portal",
+            date: "2023-12-10",
+            category: "HR",
+            tags: ["internal", "update"],
+            content:
+              "The new employee portal, 'ConnectHub', is now live. It offers a centralized location for company news, resources, and departmental updates. We encourage everyone to log in and explore the new features.",
+          },
+          {
+            id: 6,
+            title: "Q3 2023 Highlights & Achievements",
+            date: "2023-10-18",
+            category: "Finance",
+            tags: ["quarterly", "report"],
+            content:
+              "Third-quarter results were strong, driven by robust sales in North America. We also successfully completed the acquisition of InnovateCorp, which will significantly enhance our technology portfolio.",
+          },
+          {
+            id: 7,
+            title: "Cybersecurity Awareness Month",
+            date: "2023-10-02",
+            category: "Technology",
+            tags: ["security", "internal"],
+            content:
+              "October is Cybersecurity Awareness Month. We will be sharing tips and best practices all month to help you protect yourself and the company from online threats. Stay vigilant and report any suspicious activity.",
+          },
+          {
+            id: 8,
+            title: "Company Offsite 2023 Recap",
+            date: "2023-09-05",
+            category: "Corporate",
+            tags: ["event", "recap"],
+            content:
+              "This year's company offsite in the mountains was a huge success! It was a fantastic opportunity for team building, strategic planning, and reconnecting with colleagues. Photos and videos are now available on the portal.",
+          },
+          {
+            id: 9,
+            title: "HR Update: New Parental Leave Policy",
+            date: "2023-08-15",
+            category: "HR",
+            tags: ["policy", "update"],
+            content:
+              "We are pleased to announce an enhanced parental leave policy, effective immediately. This new policy provides more flexibility and support for new parents, reflecting our commitment to a healthy work-life balance.",
+          },
+          {
+            id: 10,
+            title: "Q2 2023 Financial Report",
+            date: "2023-07-19",
+            category: "Finance",
+            tags: ["quarterly", "report"],
+            content:
+              "The second quarter of 2023 saw steady growth across all business units. We are on track to meet our annual targets and continue to invest in key areas of strategic importance.",
+          },
+          {
+            id: 11,
+            title: "Launch of the 'Green Initiative'",
+            date: "2023-06-22",
+            category: "Corporate",
+            tags: ["sustainability", "initiative"],
+            content:
+              "We are proud to launch our company-wide 'Green Initiative', aimed at reducing our carbon footprint. This includes new recycling programs, energy-saving measures, and a commitment to sustainable sourcing.",
+          },
+          {
+            id: 12,
+            title: "Tech Talk: The Future of Cloud Computing",
+            date: "2023-05-30",
+            category: "Technology",
+            tags: ["innovation", "cloud"],
+            content:
+              "Our latest Tech Talk featured a deep dive into the future of cloud computing. The session covered emerging trends like serverless architecture and edge computing. A recording is available for those who missed it.",
+          },
+          {
+            id: 13,
+            title: "New Product Launch: Quantum Analytics",
+            date: "2024-05-28",
+            category: "Technology",
+            tags: ["product", "analytics"],
+            content:
+              "We're excited to announce the launch of Quantum Analytics, our next-generation data analysis platform. This powerful tool combines machine learning with intuitive visualizations to help businesses extract actionable insights from complex datasets.\n\nEarly adopters have reported a 40% reduction in analysis time and significant improvements in decision-making accuracy.",
+          },
+          {
+            id: 14,
+            title: "Global Expansion: New Office in Singapore",
+            date: "2024-06-15",
+            category: "Corporate",
+            tags: ["expansion", "global"],
+            content:
+              "As part of our Asia-Pacific growth strategy, we're thrilled to announce the opening of our new regional headquarters in Singapore. This strategic location will allow us to better serve our growing client base in Southeast Asia and provide enhanced support for regional operations.\n\nThe office will be fully operational by April 1st, with a team of 25 professionals across sales, support, and technical roles.",
+          },
+          {
+            id: 15,
+            title: "Employee Wellness Program Updates",
+            date: "2024-07-12",
+            category: "HR",
+            tags: ["wellness", "benefits"],
+            content:
+              "We're enhancing our employee wellness program with several new benefits. Starting next month, all employees will have access to a premium mental health platform, expanded fitness reimbursements, and quarterly wellness days.\n\nThese additions reflect our ongoing commitment to supporting the holistic wellbeing of our team members.",
+          },
+          {
+            id: 16,
+            title: "Sustainability Report 2023",
+            date: "2024-08-18",
+            category: "Corporate",
+            tags: ["sustainability", "report"],
+            content:
+              "Our annual sustainability report is now available. We've made significant progress toward our environmental goals, reducing our carbon footprint by 18% and implementing renewable energy solutions across 60% of our facilities.\n\nThe report also outlines our roadmap to becoming carbon-neutral by 2030 and our initiatives to promote sustainable practices throughout our supply chain.",
+          },
+          {
+            id: 17,
+            title: "Customer Success Story: Global Foods Inc.",
+            date: "2024-09-05",
+            category: "Marketing",
+            tags: ["case-study", "success"],
+            content:
+              "Global Foods Inc. implemented our enterprise solution last quarter and has already seen remarkable results. Their order processing efficiency improved by 35%, while customer satisfaction scores increased by 28%.\n\nThis case study explores their implementation journey, challenges overcome, and the specific features that drove their success.",
+          },
+          {
+            id: 18,
+            title: "Security Update: Enhanced Data Protection",
+            date: "2024-10-14",
+            category: "Technology",
+            tags: ["security", "update"],
+            content:
+              "We've implemented significant enhancements to our data protection infrastructure. These updates include advanced encryption protocols, improved access controls, and enhanced monitoring systems.\n\nAll clients will be automatically upgraded to these new security standards by the end of the month, with zero downtime expected during the transition.",
+          },
+          {
+            id: 19,
+            title: "Industry Recognition: Top Enterprise Solution 2023",
+            date: "2024-11-22",
+            category: "Corporate",
+            tags: ["award", "recognition"],
+            content:
+              "We're honored to announce that our flagship platform has been named 'Top Enterprise Solution of 2023' by Business Technology Review. This prestigious award recognizes our commitment to innovation, reliability, and customer success.\n\nThe judges particularly highlighted our platform's scalability, intuitive interface, and exceptional customer support.",
+          },
+          {
+            id: 20,
+            title: "Product Update: Mobile App Redesign",
+            date: "2024-12-08",
+            category: "Technology",
+            tags: ["mobile", "update"],
+            content:
+              "We've completely redesigned our mobile application with a focus on user experience and performance. The new version features a streamlined interface, faster loading times, and several new capabilities requested by our users.\n\nThe update will be rolled out gradually over the next two weeks. Users can expect a notification when the new version is available for their device.",
+          },
+          {
+            id: 21,
+            title: "Leadership Spotlight: Interview with CTO",
+            date: "2025-01-11",
+            category: "Corporate",
+            tags: ["leadership", "interview"],
+            content:
+              "In this month's leadership spotlight, we sit down with our Chief Technology Officer to discuss the company's technology roadmap, emerging industry trends, and our approach to innovation.\n\nThe interview provides valuable insights into how we're positioning our solutions to address future market needs and leverage cutting-edge technologies.",
+          },
+          {
+            id: 22,
+            title: "Community Outreach: Summer Coding Camp",
+            date: "2025-02-05",
+            category: "Corporate",
+            tags: ["community", "education"],
+            content:
+              "This summer, our team members volunteered at coding camps in 12 cities, teaching programming fundamentals to over 500 students from underrepresented communities.\n\nThese initiatives are part of our broader commitment to promoting diversity in tech and supporting STEM education. We're already planning an expanded program for next year based on the positive feedback received.",
+          },
+          {
+            id: 23,
+            title: "Upcoming Webinar: Future of Work",
+            date: "2025-03-17",
+            category: "Marketing",
+            tags: ["webinar", "event"],
+            content:
+              "Join us on May 30th for an insightful webinar on 'The Future of Work: Trends and Technologies Shaping Tomorrow's Workplace.' Our panel of industry experts will discuss remote work best practices, emerging collaboration tools, and strategies for maintaining company culture in distributed teams.\n\nRegistration is now open on our events page, with limited spots available.",
+          },
+          {
+            id: 24,
+            title: "Q1 2023 Financial Performance",
+            date: "2025-04-12",
+            category: "Finance",
+            tags: ["quarterly", "report"],
+            content:
+              "Our first quarter results show strong performance across all business units. Revenue increased by 15% year-over-year, while operating margins improved by 2 percentage points.\n\nKey growth drivers included our new product launches, expanded international presence, and increased adoption of our subscription services. The full financial report is available on our investor relations portal.",
+          },
+          {
+            id: 25,
+            title: "Annual Customer Conference Announcement",
+            date: "2025-05-20",
+            category: "Marketing",
+            tags: ["event", "conference"],
+            content:
+              "We're excited to announce our Annual Customer Conference will take place September 15-17, 2025 at the Grand Convention Center. This year's theme is 'Innovation at Scale: Building for Tomorrow'.\n\nThe three-day event will feature keynote presentations, hands-on workshops, networking opportunities, and exclusive previews of upcoming product features. Early bird registration is now open with a 20% discount until July 1st.",
+          },
+          {
+            id: 26,
+            title: "New Strategic Partnership with TechForward",
+            date: "2025-06-08",
+            category: "Corporate",
+            tags: ["partnership", "growth"],
+            content:
+              "We are pleased to announce a strategic partnership with TechForward, a leader in emerging technologies. This collaboration will combine our enterprise solutions with TechForward's cutting-edge AI capabilities to deliver unprecedented value to our customers.\n\nThe partnership includes joint product development, integrated service offerings, and shared research initiatives. First joint solutions are expected to launch in Q4 2025.",
+          },
+        ];
+
+        const grid = document.getElementById("newsletter-grid");
+        const searchInput = document.getElementById("search");
+        const categoryFilter = document.getElementById("category-filter");
+        const tagFilter = document.getElementById("tag-filter");
+        const dateFilter = document.getElementById("date-filter");
+        const dateFrom = document.getElementById("date-from");
+        const dateTo = document.getElementById("date-to");
+        const customDateRange = document.getElementById("custom-date-range");
+        const sortOrder = document.getElementById("sort-order");
+        const previewPane = document.getElementById("preview-pane");
+        const previewPlaceholder = document.getElementById(
+          "preview-placeholder"
+        );
+        const previewContent = document.getElementById("preview-content");
+        const previewTitle = document.getElementById("preview-title");
+        const previewDate = document.getElementById("preview-date");
+        const previewBody = document.getElementById("preview-body");
+        const closePreviewBtn = document.getElementById("close-preview");
+        const noResultsDiv = document.getElementById("no-results");
+        const showSavedBtn = document.getElementById("show-saved-btn");
+
+        let touchStartY = 0;
+        let touchEndY = 0;
+        const pullThreshold = 100;
+        const pullIndicator = document.createElement("div");
+        pullIndicator.className =
+          "fixed top-0 left-0 w-full bg-gradient-to-r from-purple-700 to-indigo-700 text-white text-center text-sm py-2 transform -translate-y-full transition-transform duration-300 z-50 flex items-center justify-center";
+        pullIndicator.textContent = "Pull down to refresh";
+        document.body.appendChild(pullIndicator);
+
+        document.addEventListener(
+          "touchstart",
+          (e) => {
+            if (window.scrollY === 0) {
+              touchStartY = e.touches[0].clientY;
+            }
+          },
+          { passive: true }
+        );
+
+        document.addEventListener(
+          "touchmove",
+          (e) => {
+            if (touchStartY > 0) {
+              touchEndY = e.touches[0].clientY;
+              const pullDistance = touchEndY - touchStartY;
+
+              if (pullDistance > 0) {
+                const progress = Math.min(pullDistance / pullThreshold, 1);
+                pullIndicator.style.transform = `translateY(${
+                  progress * 100 - 100
+                }%)`;
+
+                if (pullDistance > pullThreshold / 2) {
+                  pullIndicator.textContent = "Release to refresh";
+                } else {
+                  pullIndicator.textContent = "Pull down to refresh";
+                }
+              }
+            }
+          },
+          { passive: true }
+        );
+
+        document.addEventListener(
+          "touchend",
+          () => {
+            if (touchStartY > 0 && touchEndY > 0) {
+              const pullDistance = touchEndY - touchStartY;
+
+              if (pullDistance > pullThreshold) {
+                pullIndicator.innerHTML =
+                  '<div class="spinner"></div> Refreshing...';
+                pullIndicator.style.transform = "translateY(0)";
+
+                setTimeout(() => {
+                  pullIndicator.style.transform = "translateY(-100%)";
+                  filterAndSort();
+
+                  touchStartY = 0;
+                  touchEndY = 0;
+                }, 1000);
+              } else {
+                pullIndicator.style.transform = "translateY(-100%)";
+                touchStartY = 0;
+                touchEndY = 0;
+              }
+            }
+          },
+          { passive: true }
+        );
+
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.target.tagName === "INPUT" ||
+            e.target.tagName === "SELECT" ||
+            e.target.tagName === "TEXTAREA"
+          ) {
+            return;
+          }
+
+          const activeId = previewPane.dataset.activeId;
+
+          switch (e.key) {
+            case "ArrowRight":
+              if (activeId) {
+                navigateNewsletter("next");
+                e.preventDefault();
+              }
+              break;
+            case "ArrowLeft":
+              if (activeId) {
+                navigateNewsletter("prev");
+                e.preventDefault();
+              }
+              break;
+            case "Escape":
+              if (activeId) {
+                hidePreview();
+                if (window.innerWidth < 640) {
+                  handleMobilePreview(false);
+                }
+                e.preventDefault();
+              }
+              break;
+            case "f":
+              if (activeId && !e.ctrlKey && !e.metaKey) {
+                toggleFullscreen();
+                e.preventDefault();
+              }
+              break;
+          }
+        });
+
+        let savedItems =
+          JSON.parse(localStorage.getItem("savedNewsletterItems")) || [];
+        let isShowingSaved = false;
+
+        const populateFilters = () => {
+          const categories = [
+            ...new Set(newsletters.map((n) => n.category)),
+          ].sort();
+          const tags = [...new Set(newsletters.flatMap((n) => n.tags))].sort();
+
+          const allCategoriesDiv = document.createElement("div");
+          allCategoriesDiv.className = "mb-1";
+          const allCategoriesCheckbox = document.createElement("input");
+          allCategoriesCheckbox.type = "checkbox";
+          allCategoriesCheckbox.id = "category-all";
+          allCategoriesCheckbox.className = "mr-2";
+          allCategoriesCheckbox.checked = true;
+          allCategoriesCheckbox.addEventListener("change", (e) => {
+            if (e.target.checked) {
+              document.querySelectorAll(".category-checkbox").forEach((cb) => {
+                cb.checked = false;
+              });
+            }
+            filterAndSort();
+          });
+          const allCategoriesLabel = document.createElement("label");
+          allCategoriesLabel.htmlFor = "category-all";
+          allCategoriesLabel.textContent = "All Categories";
+          allCategoriesDiv.appendChild(allCategoriesCheckbox);
+          allCategoriesDiv.appendChild(allCategoriesLabel);
+          categoryFilter.appendChild(allCategoriesDiv);
+
+          categories.forEach((cat) => {
+            const div = document.createElement("div");
+            div.className = "mb-1";
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = `category-${cat}`;
+            checkbox.value = cat;
+            checkbox.className = "mr-2 category-checkbox";
+            checkbox.addEventListener("change", (e) => {
+              if (e.target.checked) {
+                document.getElementById("category-all").checked = false;
+              }
+              if (
+                document.querySelectorAll(".category-checkbox:checked")
+                  .length === 0
+              ) {
+                document.getElementById("category-all").checked = true;
+              }
+              filterAndSort();
+            });
+            const label = document.createElement("label");
+            label.htmlFor = `category-${cat}`;
+            label.textContent = cat;
+            div.appendChild(checkbox);
+            div.appendChild(label);
+            categoryFilter.appendChild(div);
+          });
+
+          const allTagsDiv = document.createElement("div");
+          allTagsDiv.className = "mb-1";
+          const allTagsCheckbox = document.createElement("input");
+          allTagsCheckbox.type = "checkbox";
+          allTagsCheckbox.id = "tag-all";
+          allTagsCheckbox.className = "mr-2";
+          allTagsCheckbox.checked = true;
+          allTagsCheckbox.addEventListener("change", (e) => {
+            if (e.target.checked) {
+              document.querySelectorAll(".tag-checkbox").forEach((cb) => {
+                cb.checked = false;
+              });
+            }
+            filterAndSort();
+          });
+          const allTagsLabel = document.createElement("label");
+          allTagsLabel.htmlFor = "tag-all";
+          allTagsLabel.textContent = "All Tags";
+          allTagsDiv.appendChild(allTagsCheckbox);
+          allTagsDiv.appendChild(allTagsLabel);
+          tagFilter.appendChild(allTagsDiv);
+
+          tags.forEach((tag) => {
+            const div = document.createElement("div");
+            div.className = "mb-1";
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = `tag-${tag}`;
+            checkbox.value = tag;
+            checkbox.className = "mr-2 tag-checkbox";
+            checkbox.addEventListener("change", (e) => {
+              if (e.target.checked) {
+                document.getElementById("tag-all").checked = false;
+              }
+              if (
+                document.querySelectorAll(".tag-checkbox:checked").length === 0
+              ) {
+                document.getElementById("tag-all").checked = true;
+              }
+              filterAndSort();
+            });
+            const label = document.createElement("label");
+            label.htmlFor = `tag-${tag}`;
+            label.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+            div.appendChild(checkbox);
+            div.appendChild(label);
+            tagFilter.appendChild(div);
+          });
+        };
+
+        const initializeSortOrder = () => {
+          const savedSort =
+            localStorage.getItem("newsletterSortPreference") || "newest";
+          document.getElementById("sort-order").value = savedSort;
+        };
+
+        const renderGrid = (items) => {
+          grid.innerHTML = "";
+          if (items.length === 0) {
+            noResultsDiv.classList.remove("hidden");
+          } else {
+            noResultsDiv.classList.add("hidden");
+          }
+
+          items.forEach((item) => {
+            const isSaved = savedItems.includes(item.id);
+            const card = document.createElement("div");
+            card.className =
+              "newsletter-card card-glow bg-gray-800 p-5 rounded-lg shadow-lg cursor-pointer transition-all";
+            card.dataset.id = item.id;
+
+            const excerpt =
+              item.content.length > 100
+                ? item.content.substring(0, 100).replace(/\n/g, " ") + "..."
+                : item.content;
+
+            const categoryClass = `category-${item.category}`;
+
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-lg font-bold text-high-contrast pr-2">${
+                      item.title
+                    }</h3>
+                    <button class="save-btn flex-shrink-0" data-id="${
+                      item.id
+                    }" title="Save for Later">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 pointer-events-none ${
+                          isSaved
+                            ? "text-purple-500 fill-current"
+                            : "text-gray-500 hover:text-purple-400"
+                        }" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-3.13L5 18V4z" />
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-sm text-gray-400 mb-2">${new Date(
+                  item.date
+                ).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}</p>
+                <p class="card-excerpt">${excerpt}</p>
+                <div>
+                    <div class="mb-1">
+                        <span class="category-badge ${categoryClass}">${
+              item.category
+            }</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        ${item.tags
+                          .map(
+                            (tag) =>
+                              `<span class="tag">${
+                                tag.charAt(0).toUpperCase() + tag.slice(1)
+                              }</span>`
+                          )
+                          .join("")}
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+          });
+        };
+
+        const filterAndSort = () => {
+          const searchTerm = searchInput.value.toLowerCase();
+          const categoryAll = document.getElementById("category-all").checked;
+          const tagAll = document.getElementById("tag-all").checked;
+          const dateRange = dateFilter.value;
+          const sortByNewest = sortOrder.value === "newest";
+
+          const selectedCategories = categoryAll
+            ? []
+            : [...document.querySelectorAll(".category-checkbox:checked")].map(
+                (cb) => cb.value
+              );
+          const selectedTags = tagAll
+            ? []
+            : [...document.querySelectorAll(".tag-checkbox:checked")].map(
+                (cb) => cb.value
+              );
+
+          let filteredItems = [...newsletters];
+
+          if (isShowingSaved) {
+            filteredItems = filteredItems.filter((item) =>
+              savedItems.includes(item.id)
+            );
+          }
+
+          filteredItems = filteredItems.filter((item) => {
+            const matchesSearch =
+              item.title.toLowerCase().includes(searchTerm) ||
+              item.content.toLowerCase().includes(searchTerm);
+
+            const matchesCategory =
+              categoryAll || selectedCategories.includes(item.category);
+
+            const matchesTag =
+              tagAll || item.tags.some((tag) => selectedTags.includes(tag));
+
+            let matchesDate = true;
+            const itemDate = new Date(item.date);
+            const today = new Date();
+
+            if (dateRange === "last-month") {
+              const lastMonth = new Date();
+              lastMonth.setMonth(today.getMonth() - 1);
+              matchesDate = itemDate >= lastMonth;
+            } else if (dateRange === "last-quarter") {
+              const lastQuarter = new Date();
+              lastQuarter.setMonth(today.getMonth() - 3);
+              matchesDate = itemDate >= lastQuarter;
+            } else if (dateRange === "last-year") {
+              const lastYear = new Date();
+              lastYear.setFullYear(today.getFullYear() - 1);
+              matchesDate = itemDate >= lastYear;
+            } else if (dateRange === "custom") {
+              const fromDate = dateFrom.value ? new Date(dateFrom.value) : null;
+              const toDate = dateTo.value ? new Date(dateTo.value) : null;
+
+              if (fromDate && toDate) {
+                toDate.setHours(23, 59, 59, 999);
+                matchesDate = itemDate >= fromDate && itemDate <= toDate;
+              } else if (fromDate) {
+                matchesDate = itemDate >= fromDate;
+              } else if (toDate) {
+                toDate.setHours(23, 59, 59, 999);
+                matchesDate = itemDate <= toDate;
+              }
+            }
+
+            return (
+              matchesSearch && matchesCategory && matchesTag && matchesDate
+            );
+          });
+
+          filteredItems.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return sortByNewest ? dateB - dateA : dateA - dateB;
+          });
+
+          renderGrid(filteredItems);
+        };
+
+        const showPreview = (id) => {
+          const item = newsletters.find((n) => n.id === parseInt(id));
+          if (!item) return;
+
+          document.querySelectorAll(".newsletter-card").forEach((card) => {
+            card.classList.remove("active");
+          });
+
+          const selectedCard = document.querySelector(
+            `.newsletter-card[data-id="${id}"]`
+          );
+          if (selectedCard) {
+            selectedCard.classList.add("active");
+          }
+
+          previewPlaceholder.classList.add("hidden");
+          previewContent.classList.remove("hidden");
+          previewContent.classList.add("flex");
+
+          previewTitle.textContent = item.title;
+          previewTitle.className =
+            "text-2xl font-bold text-high-contrast leading-tight";
+          previewDate.textContent = `Published on ${new Date(
+            item.date
+          ).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}`;
+          previewDate.className = "text-sm text-gray-400 mb-4";
+
+          const truncatedContent =
+            item.content.length > 400
+              ? item.content.substring(0, 400) + "..."
+              : item.content;
+          previewBody.textContent = truncatedContent;
+          previewBody.className =
+            "text-gray-300 whitespace-pre-line preview-content";
+
+          previewPane.dataset.activeId = id;
+        };
+
+        const hidePreview = () => {
+          document.querySelectorAll(".newsletter-card").forEach((card) => {
+            card.classList.remove("active");
+          });
+
+          previewContent.classList.add("hidden");
+          previewContent.classList.remove("flex");
+          previewPlaceholder.classList.remove("hidden");
+          previewPane.removeAttribute("data-activeId");
+        };
+
+        // Toggle save status for an item
+        const toggleSaveItem = (id) => {
+          const numericId = parseInt(id);
+          const index = savedItems.indexOf(numericId);
+
+          if (index > -1) {
+            savedItems.splice(index, 1); // Unsave
+          } else {
+            savedItems.push(numericId); // Save
+          }
+
+          localStorage.setItem(
+            "savedNewsletterItems",
+            JSON.stringify(savedItems)
+          );
+
+          // If we are currently in "Show Saved" mode, a change should trigger a re-render
+          if (isShowingSaved) {
+            filterAndSort();
+          } else {
+            // Just update the icon visuals on the specific card
+            const button = document.querySelector(
+              `.save-btn[data-id='${id}'] svg`
+            );
+            if (button) {
+              button.classList.toggle("text-purple-500");
+              button.classList.toggle("fill-current");
+              button.classList.toggle("text-gray-500");
+            }
+          }
+        };
+
+        // Toggle fullscreen mode for the preview
+        const toggleFullscreen = () => {
+          const fullscreenMode = document.getElementById("fullscreen-mode");
+
+          if (fullscreenMode) {
+            document.body.removeChild(fullscreenMode);
+            document.body.classList.remove("overflow-hidden");
+          } else {
+            const activeId = previewPane.dataset.activeId;
+            if (!activeId) return;
+
+            const item = newsletters.find((n) => n.id === parseInt(activeId));
+            if (!item) return;
+
+            const fullscreen = document.createElement("div");
+            fullscreen.id = "fullscreen-mode";
+            fullscreen.className = "fullscreen-mode";
+            fullscreen.innerHTML = `
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex justify-between items-start mb-6">
+                        <h1 class="text-3xl font-bold text-high-contrast">${
+                          item.title
+                        }</h1>
+                        <button id="exit-fullscreen" class="text-gray-400 hover:text-white p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="text-gray-400 mb-8">Published on ${new Date(
+                      item.date
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}</p>
+                    <div class="preview-content text-gray-200 text-lg">
+                        ${item.content.replace(/\n/g, "<br>")}
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(fullscreen);
+            document.body.classList.add("overflow-hidden");
+
+            document
+              .getElementById("exit-fullscreen")
+              .addEventListener("click", toggleFullscreen);
+          }
+        };
+
+        const handleMobilePreview = (show) => {
+          const mobileOverlay = document.getElementById("mobile-overlay");
+
+          if (show) {
+            previewPane.classList.add("active");
+            mobileOverlay.classList.add("active");
+          } else {
+            previewPane.classList.remove("active");
+            mobileOverlay.classList.remove("active");
+          }
+        };
+
+        const updateReadingProgress = () => {
+          const readingProgress = document.getElementById("reading-progress");
+          const previewContent = document.querySelector(".overflow-y-auto");
+
+          if (!previewContent) return;
+
+          const scrollPosition = previewContent.scrollTop;
+          const scrollHeight =
+            previewContent.scrollHeight - previewContent.clientHeight;
+          const scrollPercentage = (scrollPosition / scrollHeight) * 100;
+
+          readingProgress.style.width = `${scrollPercentage}%`;
+        };
+
+        const navigateNewsletter = (direction) => {
+          const activeId = parseInt(previewPane.dataset.activeId);
+          if (!activeId) return;
+
+          const visibleNewsletters = [
+            ...document.querySelectorAll("#newsletter-grid > div"),
+          ].map((card) => parseInt(card.dataset.id));
+
+          const currentIndex = visibleNewsletters.indexOf(activeId);
+          if (currentIndex === -1) return;
+
+          let targetIndex;
+          if (direction === "next") {
+            targetIndex =
+              currentIndex + 1 < visibleNewsletters.length
+                ? currentIndex + 1
+                : null;
+          } else {
+            targetIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : null;
+          }
+
+          if (targetIndex !== null) {
+            showPreview(visibleNewsletters[targetIndex]);
+
+            document.getElementById("prev-newsletter").disabled =
+              targetIndex === 0;
+            document.getElementById("next-newsletter").disabled =
+              targetIndex === visibleNewsletters.length - 1;
+          }
+        };
+
+        grid.addEventListener("click", (e) => {
+          const card = e.target.closest(".newsletter-card");
+          const saveButton = e.target.closest(".save-btn");
+
+          if (saveButton) {
+            e.stopPropagation();
+            toggleSaveItem(saveButton.dataset.id);
+          } else if (card) {
+            showPreview(card.dataset.id);
+
+            if (window.innerWidth < 640) {
+              handleMobilePreview(true);
+            }
+          }
+        });
+
+        searchInput.addEventListener("input", filterAndSort);
+
+        dateFilter.addEventListener("change", () => {
+          if (dateFilter.value === "custom") {
+            customDateRange.classList.remove("hidden");
+          } else {
+            customDateRange.classList.add("hidden");
+          }
+          filterAndSort();
+        });
+
+        dateFrom.addEventListener("change", filterAndSort);
+        dateTo.addEventListener("change", filterAndSort);
+
+        sortOrder.addEventListener("change", () => {
+          localStorage.setItem("newsletterSortPreference", sortOrder.value);
+          filterAndSort();
+        });
+
+        closePreviewBtn.addEventListener("click", () => {
+          hidePreview();
+
+          if (window.innerWidth < 640) {
+            handleMobilePreview(false);
+          }
+        });
+
+        document
+          .getElementById("fullscreen-btn")
+          .addEventListener("click", toggleFullscreen);
+
+        document
+          .getElementById("mobile-overlay")
+          .addEventListener("click", () => {
+            hidePreview();
+            handleMobilePreview(false);
+          });
+
+        document
+          .querySelector(".overflow-y-auto")
+          ?.addEventListener("scroll", updateReadingProgress);
+
+        document
+          .getElementById("prev-newsletter")
+          .addEventListener("click", () => navigateNewsletter("prev"));
+        document
+          .getElementById("next-newsletter")
+          .addEventListener("click", () => navigateNewsletter("next"));
+
+        document
+          .getElementById("filter-toggle")
+          .addEventListener("click", () => {
+            const filterSection = document.getElementById("filter-section");
+            filterSection.classList.toggle("expanded");
+          });
+
+        showSavedBtn.addEventListener("click", () => {
+          isShowingSaved = !isShowingSaved;
+          if (isShowingSaved) {
+            showSavedBtn.textContent = "Show All";
+            showSavedBtn.className =
+              "w-full mb-6 px-4 py-2 text-sm font-medium bg-gradient-to-r from-indigo-700 to-purple-700 hover:from-indigo-600 hover:to-purple-600 text-white rounded-md transition-colors shadow-md";
+          } else {
+            showSavedBtn.textContent = "Show Saved";
+            showSavedBtn.className =
+              "w-full mb-6 px-4 py-2 text-sm font-medium bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white rounded-md transition-colors shadow-md";
+          }
+          filterAndSort();
+        });
+
+        document.querySelectorAll(".filter-toggle-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const targetId = btn.dataset.target;
+            const targetContainer = document.getElementById(targetId);
+            targetContainer.classList.toggle("collapsed");
+
+            const svg = btn.querySelector("svg");
+            if (targetContainer.classList.contains("collapsed")) {
+              svg.innerHTML =
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />';
+            } else {
+              svg.innerHTML =
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />';
+            }
+          });
+        });
+
+        populateFilters();
+        initializeSortOrder();
+
+        document.getElementById("newsletter-grid").className =
+          "grid grid-comfortable gap-5";
+
+        const initializeDateInputs = () => {
+          const today = new Date();
+
+          const toDateStr = today.toISOString().split("T")[0];
+          dateTo.value = toDateStr;
+
+          const fromDate = new Date();
+          fromDate.setMonth(today.getMonth() - 3);
+          const fromDateStr = fromDate.toISOString().split("T")[0];
+          dateFrom.value = fromDateStr;
+        };
+
+        initializeDateInputs();
+
+        if (window.innerWidth < 1024) {
+          document
+            .getElementById("filter-section")
+            .classList.remove("expanded");
+        }
+
+        filterAndSort();
+      });
+    </script>
+  </body>
+</html>
