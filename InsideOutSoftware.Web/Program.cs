@@ -15,9 +15,10 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseHttpsRedirection();
 
 app.Use(async (context, next) =>
 {
@@ -26,7 +27,7 @@ app.Use(async (context, next) =>
     if (host.StartsWith("www.", StringComparison.OrdinalIgnoreCase))
     {
         var newUrl =
-            $"{context.Request.Scheme}://{host.Substring(4)}{context.Request.Path}{context.Request.QueryString}";
+            $"{context.Request.Scheme}://{host[4..]}{context.Request.Path}{context.Request.QueryString}";
 
         context.Response.Redirect(newUrl, permanent: true);
 
@@ -36,7 +37,6 @@ app.Use(async (context, next) =>
     await next();
 });
 
-app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
