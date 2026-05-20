@@ -4,15 +4,19 @@
     </div>
     
     <div class="work-details">
-        <a href="@WebLink" target="_blank" class="work-title-link">
-            <h3 class="work-title">
-                @JobTitle
-                @if (!string.IsNullOrWhiteSpace(WebLink))
-                {
+        @if (!string.IsNullOrWhiteSpace(WebLink))
+        {
+            <a href="@WebLink" target="_blank" rel="noopener noreferrer" class="work-title-link">
+                <h3 class="work-title">
+                    @JobTitle
                     <span class="material-symbols-outlined title-span">arrow_outward</span>
-                }
-            </h3>
-        </a>
+                </h3>
+            </a>
+        }
+        else
+        {
+            <h3 class="work-title">@JobTitle</h3>
+        }
         
         <p class="work-description">@Description</p>
         
@@ -26,18 +30,18 @@
 </div>
 
 @code {
-    [Parameter]
-    public string Dates { get; set; }
+    [Parameter, EditorRequired]
+    public string Dates { get; set; } = string.Empty;
+    
+    [Parameter, EditorRequired]
+    public string JobTitle { get; set; } = string.Empty;
+    
+    [Parameter, EditorRequired]
+    public string Description { get; set; } = string.Empty;
+    
+    [Parameter, EditorRequired]
+    public IReadOnlyList<string> Techs { get; set; } = [];
     
     [Parameter]
-    public string JobTitle { get; set; }
-    
-    [Parameter]
-    public string Description { get; set; }
-    
-    [Parameter]
-    public List<string> Techs { get; set; }
-    
-    [Parameter]
-    public string WebLink { get; set; }
+    public string? WebLink { get; set; }
 }

@@ -17,7 +17,14 @@ namespace InsideOutSoftware.Web.Services
                     ImgSrc = "Images/PharmacyApp/pharmacyApp01.png",
                     ImgAlt = "PharmacyApp",
                     Description = "This Pharmacy App is an app built using Xamarin and .NET Maui to allow users to access their prescription history and refill prescriptions as needed.",
-                    ImgFolder = "PharmacyApp",
+                    GalleryImages =
+                    [
+                        "Images/PharmacyApp/pharmacyApp01.png",
+                        "Images/PharmacyApp/pharmacyApp02.png",
+                        "Images/PharmacyApp/pharmacyApp03.png",
+                        "Images/PharmacyApp/pharmacyApp04.png",
+                        "Images/PharmacyApp/pharmacyApp05.png"
+                    ],
                     Type = ProjectType.ImageGallery
                 },
                 new ProjectModel
@@ -27,7 +34,14 @@ namespace InsideOutSoftware.Web.Services
                     ImgSrc = "Images/MobileRT/mobilert01.png",
                     ImgAlt = "WellData MobileRT",
                     Description = "WellData™ MobileRT was an app built using Xamarin Forms to monitor drilling rig information in real time.",
-                    ImgFolder = "MobileRT",
+                    GalleryImages =
+                    [
+                        "Images/MobileRT/mobilert01.png",
+                        "Images/MobileRT/mobilert02.png",
+                        "Images/MobileRT/mobilert03.png",
+                        "Images/MobileRT/mobilert04.png",
+                        "Images/MobileRT/mobilert05.png"
+                    ],
                     Type = ProjectType.ImageGallery
                 },
                 new ProjectModel
@@ -37,7 +51,14 @@ namespace InsideOutSoftware.Web.Services
                     ImgSrc = "Images/SharpRemote/sharpremote01.png",
                     ImgAlt = "Sharp Remote",
                     Description = "Sharp Remote was a personal project developed after my kids kept losing the TV remote. It uses web sockets to send remote commands to the TV, and a SQL Lite database to store custom buttons the user can set.",
-                    ImgFolder = "SharpRemote",
+                    GalleryImages =
+                    [
+                        "Images/SharpRemote/sharpremote01.png",
+                        "Images/SharpRemote/sharpremote02.png",
+                        "Images/SharpRemote/sharpremote03.png",
+                        "Images/SharpRemote/sharpremote04.png",
+                        "Images/SharpRemote/sharpremote05.png"
+                    ],
                     Border = true,
                     Type = ProjectType.ImageGallery
                 },
@@ -74,8 +95,9 @@ namespace InsideOutSoftware.Web.Services
             };
         }
 
-        public List<ProjectModel> GetAllProjects() => _projects;
+        public IReadOnlyList<ProjectModel> GetAllProjects() => _projects;
 
-        public ProjectModel GetProjectById(string id) => _projects.FirstOrDefault(p => p.Id == id);
+        public ProjectModel? GetProjectById(string id) =>
+            _projects.FirstOrDefault(p => string.Equals(p.Id, id, StringComparison.OrdinalIgnoreCase));
     }
 }

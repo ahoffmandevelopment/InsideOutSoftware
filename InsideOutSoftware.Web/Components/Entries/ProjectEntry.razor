@@ -1,7 +1,6 @@
-@using Microsoft.AspNetCore.Components
-@using Microsoft.AspNetCore.Components.Routing
+@using System.Globalization
 
-<div class="project-card" @onclick="OnProjectEntryClicked">
+<a class="project-card" href="@ProjectHref" aria-label="@($"View details for {Title}")">
     <div class="project-image-container">
         <img
             class="project-image"
@@ -11,49 +10,45 @@
     
     <div class="project-content">
         <h3 class="project-title">@Title</h3>
-        <p class="project-description">@(Description.Length > 100 ? Description.Substring(0, 100) + "..." : Description)</p>
+        <p class="project-description">@DescriptionPreview</p>
         <div class="project-view">
             <span>View Details</span>
             <i class="bi bi-arrow-right"></i>
         </div>
     </div>
-</div>
+</a>
 
 @code {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; }
-    
-    [Parameter]
-    public string ImgSrc { get; set; }
+    [Parameter, EditorRequired]
+    public string ImgSrc { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public string ImgAlt { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public string Description { get; set; } = string.Empty;
 
     [Parameter]
-    public string Title { get; set; }
+    public string? ProjectId { get; set; }
 
-    [Parameter]
-    public string ImgAlt { get; set; }
+    private string DescriptionPreview =>
+        Description.Length > 100 ? $"{Description[..100]}..." : Description;
 
-    [Parameter]
-    public string Link { get; set; }
-    
-    [Parameter]
-    public string Description { get; set; }
-    
-    [Parameter]
-    public string ImgFolder { get; set; }
-    
-    [Parameter]
-    public bool Border { get; set; }
-    
-    [Parameter]
-    public string ProjectId { get; set; }
+    private string ProjectHref => $"/project/{CreateProjectSlug()}";
 
-    private void OnProjectEntryClicked()
+    private string CreateProjectSlug()
     {
-        // Generate a project ID if not provided
-        var id = !string.IsNullOrEmpty(ProjectId) 
-            ? ProjectId 
-            : Title.ToLower().Replace(" ", "-").Replace("™", "").Replace("&trade;", "");
-            
-        NavigationManager.NavigateTo($"/project/{id}");
+        if (!string.IsNullOrWhiteSpace(ProjectId))
+        {
+            return ProjectId;
+        }
+
+        return Title
+            .ToLower(CultureInfo.InvariantCulture)
+            .Replace(" ", "-", StringComparison.Ordinal)
+            .Replace("™", string.Empty, StringComparison.Ordinal);
     }
 }

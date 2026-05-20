@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
-builder.Services.AddBlazorBootstrap();
+builder.Services.AddRazorComponents();
 builder.Services.AddSingleton<ProjectService>();
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -57,7 +55,7 @@ app.Use(async (context, next) =>
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapStaticAssets();
+app.MapRazorComponents<App>();
 
 app.Run();
