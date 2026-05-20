@@ -18,7 +18,9 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
     // Azure Container Apps sits behind a reverse proxy, so trust forwarded
     // headers from the ingress layer when reconstructing the public URL.
-    options.KnownIPNetworks.Clear();
+    #pragma warning disable ASPDEPR005
+    options.KnownNetworks.Clear();
+    #pragma warning restore ASPDEPR005
     options.KnownProxies.Clear();
 });
 
