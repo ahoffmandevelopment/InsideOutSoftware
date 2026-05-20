@@ -1,5 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject IJSRuntime JSRuntime
 
 <div class="main-container">
     <NavMenu />
@@ -11,14 +10,3 @@
     <FooterSection />
     
 </div>
-
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // Initialize animations
-            await JSRuntime.InvokeVoidAsync("eval", "document.querySelectorAll('section').forEach(section => section.classList.add('animate-fade-in'));");
-        }
-    }
-}

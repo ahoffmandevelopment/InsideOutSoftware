@@ -1,18 +1,18 @@
 namespace InsideOutSoftware.Web.Models
 {
-    public class ProjectModel
+    public sealed class ProjectModel
     {
-        public string Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string ImgSrc { get; set; }
-        public string ImgAlt { get; set; }
-        public string ImgFolder { get; set; }
-        public string Link { get; set; }
-        public bool Border { get; set; }
-        public ProjectType Type { get; set; }
-        public string ComponentName { get; set; }
-        public string ProjectUrl { get; set; }
+        public string Id { get; init; } = string.Empty;
+        public string Title { get; init; } = string.Empty;
+        public string Description { get; init; } = string.Empty;
+        public string ImgSrc { get; init; } = string.Empty;
+        public string ImgAlt { get; init; } = string.Empty;
+        public IReadOnlyList<string> GalleryImages { get; init; } = [];
+        public string? Link { get; init; }
+        public bool Border { get; init; }
+        public ProjectType Type { get; init; }
+        public string? ComponentName { get; init; }
+        public string? ProjectUrl { get; init; }
     }
 
     public enum ProjectType

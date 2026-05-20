@@ -1,0 +1,68 @@
+@using InsideOutSoftware.Web.Components.Pages
+@using InsideOutSoftware.Web.Models
+@using InsideOutSoftware.Web.Services
+@using Microsoft.AspNetCore.Components.Routing
+@inject ProjectService ProjectService
+
+<PageTitle>@Title</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <link rel="canonical" href="@CanonicalUrl" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:site_name" content="Inside Out Software" />
+    <meta property="og:type" content="@OpenGraphType" />
+    <meta property="og:url" content="@CanonicalUrl" />
+    <meta property="og:image" content="@OpenGraphImageUrl" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@OpenGraphImageUrl" />
+</HeadContent>
+
+@code {
+    private const string SiteUrl = "https://insideoutsoftware.com";
+    private const string DefaultTitle = "Andrew Hoffman | .NET Developer";
+    private const string DefaultDescription = "Portfolio site for Andrew Hoffman featuring .NET, Xamarin Forms, and .NET MAUI work.";
+    private const string DefaultImage = "Images/headshot.jpeg";
+
+    [Parameter, EditorRequired]
+    public RouteData RouteData { get; set; } = default!;
+
+    private ProjectModel? Project =>
+        RouteData.PageType == typeof(ProjectDetails) &&
+        RouteData.RouteValues.TryGetValue(nameof(ProjectDetails.ProjectId), out var projectId) &&
+        projectId is string id
+            ? ProjectService.GetProjectById(id)
+            : null;
+
+    private bool IsProjectDetailsPage => RouteData.PageType == typeof(ProjectDetails);
+
+    private string Title =>
+        Project is not null
+            ? $"{Project.Title} | Inside Out Software"
+            : IsProjectDetailsPage
+                ? "Project Not Found | Inside Out Software"
+                : DefaultTitle;
+
+    private string Description =>
+        Project?.Description ??
+        (IsProjectDetailsPage
+            ? "The requested Inside Out Software project could not be found."
+            : DefaultDescription);
+
+    private string CanonicalUrl =>
+        Project is not null
+            ? $"{SiteUrl}/project/{Uri.EscapeDataString(Project.Id)}"
+            : IsProjectDetailsPage && RouteData.RouteValues.TryGetValue(nameof(ProjectDetails.ProjectId), out var projectId)
+                ? $"{SiteUrl}/project/{Uri.EscapeDataString(projectId?.ToString() ?? string.Empty)}"
+                : $"{SiteUrl}/";
+
+    private string OpenGraphType => IsProjectDetailsPage ? "article" : "website";
+
+    private string OpenGraphImageUrl =>
+        ToAbsoluteUrl(Project?.GalleryImages.FirstOrDefault() ?? Project?.ImgSrc ?? DefaultImage);
+
+    private static string ToAbsoluteUrl(string path) => $"{SiteUrl}/{path.TrimStart('/')}";
+}
