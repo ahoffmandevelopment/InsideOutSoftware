@@ -35,15 +35,11 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          _dockerfilePathKey_: _dockerfilePath_
-          _targetLabelKey_: _targetLabel_
           registryUrl: 
           registryUsername: ${{ secrets.INSIDEOUTSOFTWARE_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.INSIDEOUTSOFTWARE_REGISTRY_PASSWORD }}
           containerAppName: insideoutsoftware
           resourceGroup: insideout-rg
           imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
 
 
