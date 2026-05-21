@@ -19,6 +19,7 @@ jobs:
     permissions: 
       id-token: write #This is required for requesting the OIDC JWT Token
       contents: read #Required when GH token is used to authenticate with private repo
+      packages: write #Required to push container images to GHCR
 
     steps:
       - name: Checkout to the branch
@@ -31,16 +32,31 @@ jobs:
           tenant-id: ${{ secrets.INSIDEOUTSOFTWARE_AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.INSIDEOUTSOFTWARE_AZURE_SUBSCRIPTION_ID }}
 
-      - name: Build and push container image to registry
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push container image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ghcr.io/ahoffmandevelopment/insideoutsoftware:${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+
+      - name: Deploy container image to Azure Container Apps
         uses: azure/container-apps-deploy-action@v2
         with:
-          appSourcePath: ${{ github.workspace }}
-          registryUrl: 
-          registryUsername: ${{ secrets.INSIDEOUTSOFTWARE_REGISTRY_USERNAME }}
-          registryPassword: ${{ secrets.INSIDEOUTSOFTWARE_REGISTRY_PASSWORD }}
           containerAppName: insideoutsoftware
           resourceGroup: insideout-rg
-          imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
+          registryUrl: ghcr.io
+          imageToDeploy: ghcr.io/ahoffmandevelopment/insideoutsoftware:${{ github.sha }}
+          targetPort: 8080
 
       - name: Collect Azure cloud build temp logs
         if: failure()
