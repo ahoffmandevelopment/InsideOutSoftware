@@ -42,4 +42,36 @@ jobs:
           resourceGroup: insideout-rg
           imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
 
+      - name: Collect Azure cloud build temp logs
+        if: failure()
+        shell: bash
+        run: |
+          set -uo pipefail
+          LOG_DIR="$RUNNER_TEMP/azure-cloud-build-logs"
+          mkdir -p "$LOG_DIR"
+
+          find /tmp -maxdepth 1 -type f -name 'build*.txt' -print -exec cp {} "$LOG_DIR"/ \;
+
+          shopt -s nullglob
+          files=("$LOG_DIR"/build*.txt)
+
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No Azure cloud build temp logs found under /tmp"
+            exit 0
+          fi
+
+          for file in "${files[@]}"; do
+            echo "::group::$(basename "$file")"
+            cat "$file"
+            echo "::endgroup::"
+          done
+
+      - name: Upload Azure cloud build temp logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: azure-cloud-build-temp-logs
+          path: ${{ runner.temp }}/azure-cloud-build-logs/build*.txt
+          if-no-files-found: warn
+
 
