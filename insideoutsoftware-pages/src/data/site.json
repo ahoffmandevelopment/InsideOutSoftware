@@ -1,0 +1,130 @@
+{
+  "siteName": "Inside Out Software",
+  "ownerName": "Andrew Hoffman",
+  "siteUrl": "https://insideoutsoftware.com",
+  "defaultTitle": "Andrew Hoffman | .NET Developer",
+  "defaultDescription": "Portfolio site for Andrew Hoffman featuring .NET, Xamarin Forms, and .NET MAUI work.",
+  "header": {
+    "imageSrc": "/Images/headshot.jpeg",
+    "imageAlt": "Headshot of Andrew Hoffman",
+    "tagline": ".NET Developer with a focus on Xamarin Forms/MAUI"
+  },
+  "about": {
+    "intro": "Hello! I'm Andrew. I enjoy building cross-platform mobile apps using .NET MAUI. I focus on making sure the final product matches the client expectations while also providing clients with best practices related to mobile development.",
+    "skillsTitle": "Skills & Technologies",
+    "skills": [
+      {
+        "iconClass": "bi bi-phone-fill",
+        "label": "Xamarin Forms"
+      },
+      {
+        "iconClass": "bi bi-phone",
+        "label": ".NET MAUI"
+      },
+      {
+        "iconClass": "bi bi-code-slash",
+        "label": "C#"
+      },
+      {
+        "iconClass": "bi bi-cloud",
+        "label": "REST API"
+      },
+      {
+        "iconClass": "bi bi-database",
+        "label": "SQL"
+      },
+      {
+        "iconClass": "bi bi-git",
+        "label": "Git"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "dates": "2022 - Present",
+      "jobTitle": "Software Developer - Pixel and Texel",
+      "description": "I was responsible for a large front end and backend update on an existing Xamarin Forms app, as well as migrating that Xamarin Forms app to .NET MAUI. I was also responsible for updating and maintaining an existing .NET Core API that serviced the Forms and MAUI apps. I was also in charge of creating, updating, and maintaining build and release pipelines for the Apps and API in Azure Devops.",
+      "techs": [
+        "Xamarin Forms",
+        ".NET MAUI",
+        "REST API",
+        ".NET Core",
+        ".NET 7",
+        "GIT",
+        "VS for Mac",
+        "VS Code",
+        "Jetbrains Rider",
+        "C#"
+      ],
+      "webLink": "https://www.pixelandtexel.com/"
+    },
+    {
+      "dates": "2019 - 2022",
+      "jobTitle": "Software Developer - Skyllful",
+      "description": "I created an app in Xamarin Forms that recorded screenshots on a users phone and then exported those screenshots into a Powerpoint slideshow. I also added new features to a Xamarin Forms app that allows users to complete inspections on equipment while out in the field. I also create a suite of apps in Xamarin Forms for warehouse workers to put and pick merchandise without requiring terminal access.",
+      "techs": [
+        "Xamarin Forms",
+        "REST API",
+        ".NET Core",
+        "GIT",
+        "MVVMCross",
+        "SQL",
+        "SQL Server",
+        "VS for Mac",
+        "C#"
+      ],
+      "webLink": "https://www.skyllful.com/"
+    },
+    {
+      "dates": "2017 - 2019",
+      "jobTitle": "Software Developer - Andrew Hoffman Development",
+      "description": "I was responsible for the creation of a Xamarin Forms app that allows users to complete inspections on equipment while out in the field, along with it's associated API. I also continued and finalized development on a Xamarin Forms app that displayed real time information from drilling wells.",
+      "techs": [
+        "Xamarin Forms",
+        "REST API",
+        ".NET Core",
+        "GIT",
+        "MVVMCross",
+        "SQL",
+        "SQL Server",
+        "VS for Mac",
+        "C#"
+      ]
+    },
+    {
+      "dates": "2015 - 2017",
+      "jobTitle": "Software Developer - PILR Tech",
+      "description": "I began development on a Xamarin Forms app that displayed real time information from drilling wells. I also created a SPA site that described a company led initiative. I also created a WPF desktop application for troubleshooting why something isn't working based on the 5 Whys Process.",
+      "techs": [
+        "Xamarin Forms",
+        "REST API",
+        "GIT",
+        "ASP.NET MVC",
+        "HTML & CSS",
+        "Bootstrap"
+      ]
+    }
+  ],
+  "contact": {
+    "intro": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
+    "methods": [
+      {
+        "iconClass": "bi bi-envelope-fill",
+        "label": "Email Me",
+        "href": "mailto:ahoffmandevelopment@gmail.com"
+      },
+      {
+        "iconClass": "bi bi-linkedin",
+        "label": "Connect on LinkedIn",
+        "href": "https://www.linkedin.com/in/insideoutsoftware",
+        "external": true
+      },
+      {
+        "iconClass": "bi bi-github",
+        "label": "Follow on GitHub",
+        "href": "https://github.com/ahoffmandevelopment",
+        "external": true
+      }
+    ]
+  }
+}

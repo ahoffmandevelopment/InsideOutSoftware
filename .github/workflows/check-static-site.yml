@@ -1,0 +1,41 @@
+name: Check static site
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'insideoutsoftware-pages/**'
+      - '.github/workflows/check-static-site.yml'
+  pull_request:
+    paths:
+      - 'insideoutsoftware-pages/**'
+      - '.github/workflows/check-static-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: insideoutsoftware-pages
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: insideoutsoftware-pages/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Cloudflare deployment
+        run: npm run check
