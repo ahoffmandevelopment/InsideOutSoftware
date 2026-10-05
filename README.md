@@ -13,7 +13,5 @@ npm run dev
 Cloudflare builds the `main` branch with root directory `insideoutsoftware-pages`,
 build command `npm run build`, and deploy command `npx wrangler deploy`.
 
-`InsideOutSoftware.Web/` retains the original .NET application. Its existing Azure
-deployment workflow still runs on pushes to `main`; disable it separately when
-retiring Azure. Cloudflare's Git integration deploys the static portfolio from
-the same branch.
+Cloudflare is the only configured hosting provider. `InsideOutSoftware.Web/`
+retains the original .NET application for reference and local development.

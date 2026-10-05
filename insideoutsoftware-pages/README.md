@@ -52,8 +52,7 @@ In the Cloudflare dashboard for `insideoutsoftware.com`:
 
 The redirect is a zone setting; the static site does not include a Worker script
 that runs on every request. Cloudflare manages the Custom Domain's DNS and TLS
-certificate. Remove obsolete Azure/GitHub Pages DNS records for the web hostnames
-when switching traffic, keeping unrelated email records.
+certificate.
 
 ## Automatic deployments
 
@@ -77,9 +76,7 @@ commands use the `build.command` in `wrangler.jsonc`.
 
 The root `.github/workflows/check-static-site.yml` workflow checks the build and
 deployment configuration when static site files change. Publishing is handled by
-Cloudflare's Git integration. The old GitHub Pages workflow has been removed.
-The legacy .NET application's Azure workflow still runs on pushes to `main`.
-Disable that workflow separately when retiring the Azure deployment.
+Cloudflare's Git integration.
 
 ## Content and routing
 
