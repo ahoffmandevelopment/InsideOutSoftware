@@ -1,35 +1,17 @@
-riderModule.iml
-/_ReSharper.Caches/
+# Generated site and dependencies
+dist/
+node_modules/
+.wrangler/
 
-# User specific
-**/.idea/**/workspace.xml
-**/.idea/**/tasks.xml
-**/.idea/shelf/*
-**/.idea/dictionaries
-**/.idea/httpRequests/
+# Local configuration and secrets
+.dev.vars
+.dev.vars.*
+.env
+.env.*
 
-# Sensitive or high-churn files
-**/.idea/**/dataSources/
-**/.idea/**/dataSources.ids
-**/.idea/**/dataSources.xml
-**/.idea/**/dataSources.local.xml
-**/.idea/**/sqlDataSources.xml
-**/.idea/**/dynamic.xml
-
-# Rider
-# Rider auto-generates .iml files, and contentModel.xml
-**/.idea/**/*.iml
-**/.idea/**/contentModel.xml
-**/.idea/**/modules.xml
-
-*.suo
-*.user
-.vs/
-[Bb]in/
-[Oo]bj/
-_UpgradeReport_Files/
-[Pp]ackages/
-
+# Editor and operating system files
+.idea/
+*.log
 Thumbs.db
 Desktop.ini
 .DS_Store
