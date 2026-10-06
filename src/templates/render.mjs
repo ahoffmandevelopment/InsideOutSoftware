@@ -14,7 +14,7 @@ export const escapeHtml = (value) =>
 const e = escapeHtml;
 export const demoUrl = (project) => project.demoPath.replace(/\.html$/, "");
 export function brand() {
-  return '<a class="brand" href="/" aria-label="Inside Out Software home"><span class="brand-mark" aria-hidden="true">io</span><span>inside out<br>software.</span></a>';
+  return '<a class="brand" href="/" aria-label="Inside Out Software home"><span class="brand-mark" aria-hidden="true">io</span><span>Inside Out<br>Software</span></a>';
 }
 export function renderDocument({
   site,
