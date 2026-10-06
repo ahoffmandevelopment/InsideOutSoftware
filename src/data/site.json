@@ -51,12 +51,14 @@
         ".NET MAUI",
         "REST API",
         ".NET Core",
-        ".NET 7",
+        ".NET 10",
         "GIT",
         "VS for Mac",
         "VS Code",
         "Jetbrains Rider",
-        "C#"
+        "C#",
+        "Python",
+        "AWS"
       ],
       "webLink": "https://www.pixelandtexel.com/",
       "contributions": [
