@@ -130,6 +130,21 @@ test("homepage covers all project links, employment entries, and original anchor
     assert.ok(html.includes('id="' + id + '"'));
   assert.equal((html.match(/class="experience-entry"/g) || []).length, site.experience.length);
 });
+test("gallery covers fit their orientation and websites expose a live link", () => {
+  const project = {
+    ...projects[0],
+    websiteUrl: "https://example.com/?a=1&b=2",
+    galleryImages: [{ ...projects[0].galleryImages[0], width: 1440, height: 1000 }],
+  };
+  const card = (data) => renderHomePage(site, [data, ...projects.slice(1)])
+    .match(/<a class="project-card".*?<\/a>/s)[0];
+  assert.match(card(project), /project-stage web-stage/);
+  assert.doesNotMatch(card(project), /class="phone"/);
+  assert.match(card(projects[0]), /project-stage mobile-stage.*class="phone"/);
+  const detail = renderProjectPage(site, project, [project]);
+  assert.match(detail, /href="https:\/\/example.com\/\?a=1&amp;b=2" target="_blank" rel="noopener noreferrer">Visit website/);
+  assert.doesNotMatch(renderProjectPage(site, projects[0], projects), /Visit website/);
+});
 test("each gallery keeps its images in order with fallback links", async () => {
   for (const project of projects.filter(
     (project) => project.type === "imageGallery",

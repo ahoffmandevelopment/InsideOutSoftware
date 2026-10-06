@@ -128,7 +128,8 @@ Update the JSON, templates, or static assets here for future portfolio changes.
 
 Use a unique lowercase ID with hyphens between words. A gallery needs at least one
 image; there is no fixed screenshot or project count. The first image supplies
-the homepage card. `width` and `height` are the pixel dimensions of the file in
+the homepage card. Portrait covers use a phone frame; landscape covers use the
+web preview layout. `width` and `height` are the pixel dimensions of the file in
 `src`; image resizing and format conversion are manual.
 
 Optional fields:
@@ -137,6 +138,7 @@ Optional fields:
   for the viewer and fallback link. Without it, both use `src`. Smaller previews
   are useful for large screenshots but are not required.
 - `summary` supplies shorter homepage copy; otherwise the card uses `description`.
+- `websiteUrl` adds a “Visit website” link to the project page.
 - `overview` adds the “What it does” section to the project page.
 - `socialImage` supplies a custom share image; otherwise the shared site image is used.
 

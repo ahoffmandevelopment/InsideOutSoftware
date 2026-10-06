@@ -152,6 +152,44 @@
     "socialImage": "/branding/social-sharp-remote.png"
   },
   {
+    "id": "mama-and-bubs-creations",
+    "type": "imageGallery",
+    "title": "Mama & Bubs Creations",
+    "category": "E-commerce / Web",
+    "description": "A responsive storefront for a handmade gifts business, combining a live Square catalog, guest checkout, and personalized custom-order requests.",
+    "summary": "Handmade gifts, a live product catalog, and custom orders in one storefront.",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "Square API",
+      "Cloudflare Workers",
+      "D1"
+    ],
+    "websiteUrl": "https://mamaandbubscreations.com/",
+    "overview": "Customers can search and filter available products, keep a cart between visits, and choose shipping or local pickup through Square-hosted checkout. A custom-order form prepares a message for the shopper to review and send, while a Google Calendar integration lists upcoming craft fairs and pop-ups. Square manages the product catalog and inventory; a private owner dashboard controls storefront settings.",
+    "galleryImages": [
+      {
+        "src": "/Images/MamaAndBubs/home-desktop.jpg",
+        "alt": "Mama & Bubs Creations desktop homepage with a handmade gifts hero and available products",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "src": "/Images/MamaAndBubs/product-desktop.jpg",
+        "alt": "Desktop product page for a 3D Cow Tumbler Charm with its photo, price, and purchase options",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "src": "/Images/MamaAndBubs/home-mobile.jpg",
+        "alt": "Mama & Bubs Creations mobile homepage with search, cart access, and shop and custom-order links",
+        "width": 390,
+        "height": 1000
+      }
+    ],
+    "socialImage": "/Images/MamaAndBubs/home-desktop.jpg"
+  },
+  {
     "id": "html-glacier",
     "title": "Glacier Melt",
     "description": "An interactive dashboard exploring illustrative glacier retreat and meltwater data from 1990 to 2024.",
