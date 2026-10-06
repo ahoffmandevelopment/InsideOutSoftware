@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#191918"/><rect x="4" y="4" width="56" height="56" rx="7" stroke="#e6ad71" fill="none" stroke-width="2"/><text x="14" y="45" fill="#e6ad71" font-family="Arial,sans-serif" font-size="38" font-weight="600" letter-spacing="-3">io</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="12" fill="#191918"/>
+  <g transform="translate(4 8)">
+    <path fill="#e6ad71" d="M56 23V6H4V58H56V41H49V51H11V13H49V23Z"/>
+    <path fill="#f4f1e9" d="M54 26H66V38H54Z"/>
+  </g>
+</svg>
