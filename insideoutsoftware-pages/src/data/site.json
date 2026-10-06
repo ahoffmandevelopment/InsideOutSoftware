@@ -3,38 +3,36 @@
   "ownerName": "Andrew Hoffman",
   "siteUrl": "https://insideoutsoftware.com",
   "defaultTitle": "Andrew Hoffman | .NET Developer",
-  "defaultDescription": "Portfolio site for Andrew Hoffman featuring .NET, Xamarin Forms, and .NET MAUI work.",
+  "defaultDescription": "Andrew Hoffman builds cross-platform mobile apps and connected systems with .NET MAUI, C#, REST APIs, and SQL.",
   "header": {
     "imageSrc": "/Images/headshot.jpeg",
     "imageAlt": "Headshot of Andrew Hoffman",
-    "tagline": ".NET Developer with a focus on Xamarin Forms/MAUI"
+    "tagline": ".NET developer · Mobile apps & connected systems",
+    "headline": "Care in every layer.",
+    "accentHeadline": "Clarity on every screen.",
+    "intro": "I’m Andrew Hoffman, a .NET developer building cross-platform mobile apps and the systems behind them. Thoughtful interfaces. Reliable connections. Practical engineering.",
+    "featuredProjectId": "pharmacy-app"
   },
   "about": {
-    "intro": "Hello! I'm Andrew. I enjoy building cross-platform mobile apps using .NET MAUI. I focus on making sure the final product matches the client expectations while also providing clients with best practices related to mobile development.",
+    "intro": "I enjoy turning complex requirements into straightforward mobile experiences. I work with clients to understand what they need, make sound development decisions, and build a product that matches their expectations.",
     "skillsTitle": "Skills & Technologies",
     "skills": [
       {
-        "iconClass": "bi bi-phone-fill",
-        "label": "Xamarin Forms"
+        "label": "Xamarin Forms (historical experience)"
       },
       {
-        "iconClass": "bi bi-phone",
         "label": ".NET MAUI"
       },
       {
-        "iconClass": "bi bi-code-slash",
         "label": "C#"
       },
       {
-        "iconClass": "bi bi-cloud",
         "label": "REST API"
       },
       {
-        "iconClass": "bi bi-database",
         "label": "SQL"
       },
       {
-        "iconClass": "bi bi-git",
         "label": "Git"
       }
     ]
@@ -56,7 +54,12 @@
         "Jetbrains Rider",
         "C#"
       ],
-      "webLink": "https://www.pixelandtexel.com/"
+      "webLink": "https://www.pixelandtexel.com/",
+      "contributions": [
+        "Updated an existing Xamarin Forms application and migrated it to .NET MAUI.",
+        "Maintained the .NET Core API supporting the mobile applications.",
+        "Created and maintained app and API build and release pipelines in Azure DevOps."
+      ]
     },
     {
       "dates": "2019 - 2022",
@@ -73,7 +76,12 @@
         "VS for Mac",
         "C#"
       ],
-      "webLink": "https://www.skyllful.com/"
+      "webLink": "https://www.skyllful.com/",
+      "contributions": [
+        "Built a Xamarin Forms app that captured phone screenshots and exported them to PowerPoint.",
+        "Added features to mobile equipment-inspection tools.",
+        "Created warehouse apps for putting and picking merchandise without terminal access."
+      ]
     },
     {
       "dates": "2017 - 2019",
@@ -89,6 +97,10 @@
         "SQL Server",
         "VS for Mac",
         "C#"
+      ],
+      "contributions": [
+        "Built a Xamarin Forms equipment-inspection app and its supporting API.",
+        "Continued and completed a mobile application displaying real-time drilling-well information."
       ]
     },
     {
@@ -102,25 +114,27 @@
         "ASP.NET MVC",
         "HTML & CSS",
         "Bootstrap"
+      ],
+      "contributions": [
+        "Began development of a Xamarin Forms app for real-time drilling-well information.",
+        "Created a single-page site for a company initiative.",
+        "Built a WPF troubleshooting application based on the Five Whys process."
       ]
     }
   ],
   "contact": {
-    "intro": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
+    "intro": "Have a project in mind, or an opportunity on your team? I’m open to discussing mobile apps, connected systems, and how I can help.",
     "methods": [
       {
-        "iconClass": "bi bi-envelope-fill",
         "label": "Email Me",
         "href": "mailto:ahoffmandevelopment@gmail.com"
       },
       {
-        "iconClass": "bi bi-linkedin",
         "label": "Connect on LinkedIn",
         "href": "https://www.linkedin.com/in/insideoutsoftware",
         "external": true
       },
       {
-        "iconClass": "bi bi-github",
         "label": "Follow on GitHub",
         "href": "https://github.com/ahoffmandevelopment",
         "external": true

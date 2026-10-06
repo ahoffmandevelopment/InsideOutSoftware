@@ -4,7 +4,7 @@
     "title": "Pharmacy App",
     "imgSrc": "/Images/PharmacyApp/pharmacyApp01.png",
     "imgAlt": "Pharmacy App",
-    "description": "This Pharmacy App is an app built using Xamarin and .NET Maui to allow users to access their prescription history and refill prescriptions as needed.",
+    "description": "A mobile pharmacy app built with Xamarin and .NET MAUI, giving users access to their prescription history and prescription refills.",
     "galleryImages": [
       "/Images/PharmacyApp/pharmacyApp01.png",
       "/Images/PharmacyApp/pharmacyApp02.png",
@@ -12,14 +12,21 @@
       "/Images/PharmacyApp/pharmacyApp04.png",
       "/Images/PharmacyApp/pharmacyApp05.png"
     ],
-    "type": "imageGallery"
+    "type": "imageGallery",
+    "category": "Healthcare / Mobile",
+    "summary": "Prescription history and refills, closer at hand.",
+    "technologies": [
+      "Xamarin",
+      ".NET MAUI"
+    ],
+    "overview": "The app brings prescription history and refill requests to a phone, helping users access these services when they need them."
   },
   {
     "id": "welldata-mobilert",
-    "title": "WellData\u2122 MobileRT",
+    "title": "WellData™ MobileRT",
     "imgSrc": "/Images/MobileRT/mobilert01.png",
     "imgAlt": "WellData MobileRT",
-    "description": "WellData\u2122 MobileRT was an app built using Xamarin Forms to monitor drilling rig information in real time.",
+    "description": "WellData™ MobileRT is a Xamarin Forms application for monitoring drilling rig information in real time.",
     "galleryImages": [
       "/Images/MobileRT/mobilert01.png",
       "/Images/MobileRT/mobilert02.png",
@@ -27,14 +34,20 @@
       "/Images/MobileRT/mobilert04.png",
       "/Images/MobileRT/mobilert05.png"
     ],
-    "type": "imageGallery"
+    "type": "imageGallery",
+    "category": "Field operations / Mobile",
+    "summary": "Drilling rig information, monitored in real time.",
+    "technologies": [
+      "Xamarin Forms"
+    ],
+    "overview": "WellData™ MobileRT presents drilling rig information on a mobile device. Its screens bring real-time operational data and charts together."
   },
   {
     "id": "sharp-remote",
     "title": "Sharp Remote",
     "imgSrc": "/Images/SharpRemote/sharpremote01.png",
     "imgAlt": "Sharp Remote",
-    "description": "Sharp Remote was a personal project developed after my kids kept losing the TV remote. It uses web sockets to send remote commands to the TV, and a SQL Lite database to store custom buttons the user can set.",
+    "description": "A personal TV remote project that sends commands over WebSockets and stores custom buttons in SQLite.",
     "galleryImages": [
       "/Images/SharpRemote/sharpremote01.png",
       "/Images/SharpRemote/sharpremote02.png",
@@ -43,33 +56,64 @@
       "/Images/SharpRemote/sharpremote05.png"
     ],
     "border": true,
-    "type": "imageGallery"
+    "type": "imageGallery",
+    "category": "Personal project / Mobile",
+    "summary": "The kids lost the remote. I built an app.",
+    "technologies": [
+      "WebSockets",
+      "SQLite"
+    ],
+    "overview": "After my kids kept losing the TV remote, I built a remote for a phone. WebSockets send commands to the TV, while a SQLite database stores custom buttons."
   },
   {
     "id": "html-glacier",
     "title": "Glacier Melt",
-    "imgSrc": "/Images/GlacierMelt/glaciermelt01.png",
+    "imgSrc": "/Images/GlacierMelt/glaciermelt01.webp",
     "imgAlt": "Glacier Melt",
-    "description": "An interactive dashboard built with HTML, CSS, and JavaScript that visualizes global glacier retreat and its environmental impact from 1990 to 2024.",
+    "description": "An interactive dashboard exploring illustrative glacier retreat and meltwater data from 1990 to 2024.",
     "type": "htmlProject",
-    "demoPath": "/projects/glacier.html"
+    "demoPath": "/projects/glacier.html",
+    "category": "Data visualization / Web",
+    "summary": "An interactive exploration of illustrative glacier data.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "overview": "Select a year to explore the glacier illustration, runoff indicators, and data table. The dashboard uses illustrative calculations, rather than live monitoring or actual satellite imagery."
   },
   {
     "id": "html-news",
     "title": "News Explorer",
-    "imgSrc": "/Images/News/news01.png",
+    "imgSrc": "/Images/News/news01.webp",
     "imgAlt": "News Explorer",
-    "description": "A responsive news aggregator built with HTML, CSS, and JavaScript that fetches and displays current headlines from multiple sources with filtering and search capabilities.",
+    "description": "A responsive news-interface demonstration featuring sample articles, expandable previews, saved items, and simulated updates.",
     "type": "htmlProject",
-    "demoPath": "/projects/news.html"
+    "demoPath": "/projects/news.html",
+    "category": "Interactive interface / Web",
+    "summary": "Sample stories, saved articles, and simulated updates.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "overview": "Browse sample stories across Politics, Tech, and Sports, expand article previews, and save items locally. New sample articles are inserted every 20 seconds to demonstrate dynamic content; this is not a live news feed."
   },
   {
     "id": "html-newsletterarchive",
     "title": "Newsletter Archive",
-    "imgSrc": "/Images/NewsletterArchive/newsletterarchive01.png",
+    "imgSrc": "/Images/NewsletterArchive/newsletterarchive01.webp",
     "imgAlt": "Newsletter Archive",
-    "description": "A responsive newsletter archive system built with HTML, CSS, and JavaScript that allows users to browse and search through historical newsletters with categorization and filtering options.",
+    "description": "A responsive newsletter archive with search, category and tag filters, date ranges, saved items, and reading previews.",
     "type": "htmlProject",
-    "demoPath": "/projects/newsletterarchive.html"
+    "demoPath": "/projects/newsletterarchive.html",
+    "category": "Search & reading / Web",
+    "summary": "Find, filter, save, and read sample newsletters.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "overview": "Explore a local sample newsletter collection with combined search and filters, date ranges, and sorting. Save newsletters in your browser, preview their contents, or open the full reading view."
   }
 ]

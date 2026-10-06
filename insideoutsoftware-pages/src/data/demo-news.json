@@ -1,0 +1,80 @@
+{
+  "politics": [
+    {
+      "id": "politics-1",
+      "title": "Senate Passes Landmark Infrastructure Bill",
+      "summary": "The legislation is poised to allocate billions towards improving national roads, bridges, and public transit systems.",
+      "content": "After months of negotiations, the Senate has approved a comprehensive infrastructure package. Proponents argue it will create jobs and modernize the country, while critics raise concerns about the national debt.",
+      "image": "https://picsum.photos/800/500?random=101",
+      "ageHours": 2
+    },
+    {
+      "id": "politics-2",
+      "title": "New Climate Agreement Reached at Global Summit",
+      "summary": "World leaders have committed to more aggressive carbon reduction targets following two weeks of intense negotiations.",
+      "content": "The landmark agreement includes provisions for carbon pricing, renewable energy subsidies, and assistance for developing nations. Environmental groups have praised the deal while calling for even stronger measures.",
+      "image": "https://picsum.photos/800/500?random=102",
+      "ageHours": 8
+    },
+    {
+      "id": "politics-3",
+      "title": "Supreme Court Issues Ruling on Privacy Rights Case",
+      "summary": "In a 6-3 decision, the court established new precedent regarding digital privacy and government surveillance.",
+      "content": "The ruling is expected to have far-reaching implications for how law enforcement agencies can access and use personal data. Privacy advocates are calling it a victory, while security experts express concerns about hampering investigations.",
+      "image": "https://picsum.photos/800/500?random=103",
+      "ageHours": 18
+    }
+  ],
+  "tech": [
+    {
+      "id": "tech-1",
+      "title": "Quantum Computing Achieves New Milestone",
+      "summary": "Researchers have demonstrated a quantum processor that solves a problem previously deemed impossible for classical supercomputers.",
+      "content": "The breakthrough could accelerate drug discovery, materials science, and financial modeling. The team published their findings in a peer-reviewed journal this morning.",
+      "image": "https://picsum.photos/800/500?random=201",
+      "ageHours": 5
+    },
+    {
+      "id": "tech-2",
+      "title": "AI System Detects Early Signs of Disease in Medical Scans",
+      "summary": "The new algorithm outperformed human radiologists in identifying subtle indicators of potential health issues.",
+      "content": "Developed by a team of computer scientists and medical professionals, the system could dramatically improve early detection rates and patient outcomes. Clinical trials are expected to begin next month.",
+      "image": "https://picsum.photos/800/500?random=202",
+      "ageHours": 12
+    },
+    {
+      "id": "tech-3",
+      "title": "Electric Vehicle Battery Breakthrough Promises 500-Mile Range",
+      "summary": "A startup has developed a new battery technology that could double the range of electric vehicles without increasing costs.",
+      "content": "The solid-state battery design eliminates many of the limitations of current lithium-ion technology. Major automakers have already expressed interest in licensing the technology for future vehicle models.",
+      "image": "https://picsum.photos/800/500?random=203",
+      "ageHours": 36
+    }
+  ],
+  "sports": [
+    {
+      "id": "sports-1",
+      "title": "Underdogs Clinch Championship in Stunning Upset",
+      "summary": "A last-minute goal secured the victory, concluding a fairytale season for the team that was ranked last at the start.",
+      "content": "Fans erupted as the final whistle blew, marking one of the most memorable championship finals in the league's history. Celebrations are expected to continue throughout the night.",
+      "image": "https://picsum.photos/800/500?random=301",
+      "ageHours": 24
+    },
+    {
+      "id": "sports-2",
+      "title": "Star Athlete Signs Record-Breaking Contract Extension",
+      "summary": "The five-year deal makes them the highest-paid player in the league's history and includes unprecedented performance incentives.",
+      "content": "Team management cited leadership qualities and community involvement as key factors in their decision to invest in the long-term relationship. Analysts predict this could set a new standard for elite player contracts.",
+      "image": "https://picsum.photos/800/500?random=302",
+      "ageHours": 30
+    },
+    {
+      "id": "sports-3",
+      "title": "Olympic Committee Announces New Events for 2024 Games",
+      "summary": "Breaking, sport climbing, and skateboarding are among the new competitions that will debut at the next summer Olympics.",
+      "content": "The decision reflects efforts to attract younger audiences and embrace urban sports culture. Qualifying events will begin next year, with athletes from over 50 countries expected to participate.",
+      "image": "https://picsum.photos/800/500?random=303",
+      "ageHours": 48
+    }
+  ]
+}
