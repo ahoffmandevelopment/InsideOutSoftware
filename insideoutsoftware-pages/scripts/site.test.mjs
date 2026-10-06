@@ -1,6 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile, stat } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+import os from "node:os";
+import path from "node:path";
 import vm from "node:vm";
 import {
   renderHomePage,
@@ -15,13 +19,85 @@ const json = async (name) =>
       "utf8",
     ),
   );
-const [site, projects, images] = await Promise.all(
-  ["site", "projects", "images"].map(json),
+const [site, projects] = await Promise.all(
+  ["site", "projects"].map(json),
 );
 const output = async (route) =>
   readFile(new URL("../dist/" + route, import.meta.url), "utf8");
 
-test("all eleven generated views retain their routes and page metadata", async () => {
+test("a gallery project can be added using only its data and images", async () => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), "portfolio-gallery-"));
+  const run = promisify(execFile);
+  try {
+    await cp(new URL("../src/", import.meta.url), path.join(directory, "src"), { recursive: true });
+    await mkdir(path.join(directory, "scripts"));
+    const build = path.join(directory, "scripts/build.mjs");
+    await cp(new URL("./build.mjs", import.meta.url), build);
+    const project = {
+      id: "new-app",
+      type: "imageGallery",
+      title: "New App",
+      category: "Mobile",
+      description: "A newly added gallery project.",
+      technologies: [".NET MAUI"],
+      galleryImages: [],
+    };
+    const projectFile = path.join(directory, "src/data/projects.json");
+    const save = async (data) => writeFile(projectFile, JSON.stringify(data));
+    const imageDirectory = path.join(directory, "src/static/Images/NewApp");
+    await mkdir(imageDirectory, { recursive: true });
+    const exampleImage = new URL("../src/static" + site.header.image.src, import.meta.url);
+    const galleryImages = [];
+    for (let index = 1; index <= 7; index++) {
+      await cp(exampleImage, path.join(imageDirectory, `screen-${index}.webp`));
+      await cp(exampleImage, path.join(imageDirectory, `original-${index}.webp`));
+      galleryImages.push({
+        src: `/Images/NewApp/screen-${index}.webp`,
+        ...(index % 2 === 0 ? { original: `/Images/NewApp/original-${index}.webp` } : {}),
+        alt: `New App screenshot ${index}`,
+        width: site.header.image.width,
+        height: site.header.image.height,
+      });
+    }
+    for (const count of [1, 2, 7]) {
+      project.galleryImages = galleryImages.slice(0, count);
+      await save([...projects, project]);
+      await run(process.execPath, [build]);
+      const home = await readFile(path.join(directory, "dist/index.html"), "utf8");
+      const detail = await readFile(path.join(directory, "dist/project/new-app/index.html"), "utf8");
+      assert.match(home, /href="\/project\/new-app\/"/);
+      const card = home.match(/<a class="project-card" href="\/project\/new-app\/".*?<\/a>/s)[0];
+      assert.ok(card.includes('src="' + project.galleryImages[0].src + '"'));
+      assert.ok(card.includes(project.description));
+      assert.doesNotMatch(detail, /class="project-overview"|undefined|social-new-app/);
+      assert.match(detail, /property="og:image" content="https:\/\/insideoutsoftware.com\/branding\/social-home.png"/);
+      assert.deepEqual(
+        [...detail.matchAll(/class="gallery-item" href="([^"]+)"/g)].map(match => match[1]),
+        project.galleryImages.map(image => image.original ?? image.src),
+      );
+      assert.ok(detail.includes('/project/' + projects.at(-1).id + '/'));
+      const previous = await readFile(path.join(directory, "dist/project", projects.at(-1).id, "index.html"), "utf8");
+      assert.ok(previous.includes('/project/new-app/'));
+    }
+    const expectFailure = async (data, message) => {
+      await save(data);
+      await assert.rejects(run(process.execPath, [build]), error => {
+        assert.match(error.stderr, message);
+        return true;
+      });
+    };
+    await expectFailure([...projects, { ...project, id: projects[0].id }], /Duplicate project id/);
+    await expectFailure([...projects, { ...project, galleryImages: [] }], /Empty gallery/);
+    await expectFailure([...projects, { ...project, galleryImages: [{ ...project.galleryImages[0], width: 0 }] }], /Invalid image dimensions/);
+    await expectFailure([...projects, { ...project, galleryImages: [{ ...project.galleryImages[0], src: "/Images/missing.webp" }] }], /Missing local asset/);
+    await expectFailure([...projects, { ...project, galleryImages: [{ ...project.galleryImages[0], original: "/Images/missing.png" }] }], /Missing local asset/);
+    await expectFailure([...projects, { ...project, socialImage: "/branding/missing.png" }], /Missing local asset/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("all generated views retain their routes and page metadata", async () => {
   const routes = [
     "index.html",
     "404.html",
@@ -30,7 +106,6 @@ test("all eleven generated views retain their routes and page metadata", async (
       .filter((project) => project.demoPath)
       .map((project) => project.demoPath.slice(1)),
   ];
-  assert.equal(routes.length, 11);
   for (const route of routes) {
     const html = await output(route);
     assert.match(html, /<title>[^<]+<\/title>/);
@@ -47,25 +122,23 @@ test("all eleven generated views retain their routes and page metadata", async (
   }
   assert.match(await output("404.html"), /name="robots" content="noindex"/);
 });
-test("homepage covers all project links, four roles, and original anchors", () => {
-  const html = renderHomePage(site, projects, images);
+test("homepage covers all project links, employment entries, and original anchors", () => {
+  const html = renderHomePage(site, projects);
   for (const project of projects)
     assert.ok(html.includes('href="/project/' + project.id + '/"'));
   for (const id of ["projects", "about", "experience", "contact"])
     assert.ok(html.includes('id="' + id + '"'));
-  assert.equal((html.match(/class="experience-entry"/g) || []).length, 4);
-  assert.equal(projects.length, 6);
+  assert.equal((html.match(/class="experience-entry"/g) || []).length, site.experience.length);
 });
-test("each gallery keeps all five original images in order with fallback links", async () => {
+test("each gallery keeps its images in order with fallback links", async () => {
   for (const project of projects.filter(
     (project) => project.type === "imageGallery",
   )) {
-    const html = renderProjectPage(site, project, images, projects),
+    const html = renderProjectPage(site, project, projects),
       references = [
         ...html.matchAll(/class="gallery-item" href="([^"]+)"/g),
       ].map((match) => match[1]);
-    assert.equal(references.length, 5);
-    assert.deepEqual(references, project.galleryImages);
+    assert.deepEqual(references, project.galleryImages.map(image => image.original ?? image.src));
     for (const reference of references)
       assert.ok(
         (await stat(new URL("../dist" + reference, import.meta.url))).isFile(),
@@ -78,7 +151,7 @@ test("demo wrappers expose full links and deferred embedded sources", () => {
   for (const project of projects.filter(
     (project) => project.type === "htmlProject",
   )) {
-    const html = renderProjectPage(site, project, images, projects),
+    const html = renderProjectPage(site, project, projects),
       url = project.demoPath.replace(/\.html$/, "");
     assert.ok(html.includes('href="' + url + '"'));
     assert.ok(html.includes('data-demo-src="' + url + '?embedded=1"'));
@@ -97,7 +170,7 @@ test("page content and JSON script data cannot inject markup", () => {
     description: attack,
     overview: attack,
   };
-  const html = renderProjectPage(site, project, images, projects);
+  const html = renderProjectPage(site, project, projects);
   assert.ok(html.includes(escapeHtml(attack)));
   assert.ok(!html.includes(attack));
   const news = renderNews(
@@ -113,7 +186,7 @@ test("page content and JSON script data cannot inject markup", () => {
 });
 test("project navigation follows the homepage order", () => {
   projects.forEach((project, index) => {
-    const html = renderProjectPage(site, project, images, projects),
+    const html = renderProjectPage(site, project, projects),
       navigation = html.match(/<nav class="project-pagination".*?<\/nav>/s)[0];
     for (const adjacent of [projects[index - 1], projects[index + 1]].filter(
       Boolean,

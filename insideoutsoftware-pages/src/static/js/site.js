@@ -35,15 +35,20 @@
     let index = 0,
       opener;
     const render = () => {
+      const focused = document.activeElement;
       const link = links[index];
       image.src = link.href;
-      image.alt = link.dataset.caption;
+      image.alt = link.querySelector("img").alt;
       image.removeAttribute("width");
       image.removeAttribute("height");
       caption.textContent = link.dataset.caption;
       count.textContent = `${index + 1} of ${links.length}`;
       previous.disabled = index === 0;
       next.disabled = index === links.length - 1;
+      if ((focused === previous && previous.disabled) || (focused === next && next.disabled)) {
+        const enabled = previous.disabled ? next : previous;
+        (enabled.disabled ? viewer.querySelector("[data-viewer-close]") : enabled).focus();
+      }
     };
     const move = (delta) => {
       index = Math.max(0, Math.min(links.length - 1, index + delta));

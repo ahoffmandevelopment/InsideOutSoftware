@@ -5,13 +5,17 @@
   "defaultTitle": "Andrew Hoffman | .NET Developer",
   "defaultDescription": "Andrew Hoffman builds cross-platform mobile apps and connected systems with .NET MAUI, C#, REST APIs, and SQL.",
   "header": {
-    "imageSrc": "/Images/headshot.jpeg",
-    "imageAlt": "Headshot of Andrew Hoffman",
     "tagline": ".NET developer · Mobile apps & connected systems",
     "headline": "Care in every layer.",
     "accentHeadline": "Clarity on every screen.",
     "intro": "I’m Andrew Hoffman, a .NET developer building cross-platform mobile apps and the systems behind them. Thoughtful interfaces. Reliable connections. Practical engineering.",
-    "featuredProjectId": "pharmacy-app"
+    "featuredProjectId": "pharmacy-app",
+    "image": {
+      "src": "/Images/headshot.webp",
+      "alt": "Headshot of Andrew Hoffman",
+      "width": 80,
+      "height": 80
+    }
   },
   "about": {
     "intro": "I enjoy turning complex requirements into straightforward mobile experiences. I work with clients to understand what they need, make sound development decisions, and build a product that matches their expectations.",

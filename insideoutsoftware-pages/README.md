@@ -17,7 +17,7 @@ Wrangler builds the site before starting the local preview and rebuilds when
 `npm run build` separately when the preview is stopped.
 
 ```sh
-npm run build  # Generate all eleven views and validate local assets
+npm run build  # Generate pages and validate local assets
 npm test       # Build and test routes, galleries, escaping, and storage fallbacks
 npm run check  # Build and validate the Cloudflare configuration without publishing
 ```
@@ -83,8 +83,7 @@ Cloudflare's Git integration.
 ## Content and routing
 
 - `src/data/site.json`: site content, metadata, experience, and contact links
-- `src/data/projects.json`: project cards, galleries, and demo paths
-- `src/data/images.json`: preview paths and their displayed image dimensions
+- `src/data/projects.json`: project content, gallery image metadata, and demo paths
 - `src/data/demo-news.json` and `demo-newsletters.json`: retained local sample datasets
 - `src/static/`: self-hosted fonts and licenses, original gallery screenshots, WebP previews, SVG branding, CSS, and browser scripts
 - `src/templates/render.mjs`: shared portfolio templates and escaped content
@@ -99,6 +98,51 @@ generated `404.html` with HTTP status 404.
 
 Changes to the original Razor components are not copied into this static site.
 Update the JSON, templates, or static assets here for future portfolio changes.
+
+## Adding a gallery project
+
+1. Add your images under `src/static/Images/<ProjectName>/`.
+2. Add an entry to `src/data/projects.json`. Its position in the array determines
+   the homepage and previous/next project order:
+
+```json
+{
+  "id": "new-app",
+  "type": "imageGallery",
+  "title": "New App",
+  "category": "Mobile",
+  "description": "What the app does.",
+  "technologies": [".NET MAUI"],
+  "galleryImages": [
+    {
+      "src": "/Images/NewApp/home.webp",
+      "alt": "Home screen showing recent activity",
+      "width": 450,
+      "height": 1000
+    }
+  ]
+}
+```
+
+3. Run `npm test` and `npm run check`, then preview with `npm run dev`.
+
+Use a unique lowercase ID with hyphens between words. A gallery needs at least one
+image; there is no fixed screenshot or project count. The first image supplies
+the homepage card. `width` and `height` are the pixel dimensions of the file in
+`src`; image resizing and format conversion are manual.
+
+Optional fields:
+
+- An image's `original`, such as `/Images/NewApp/home.png`, supplies a larger file
+  for the viewer and fallback link. Without it, both use `src`. Smaller previews
+  are useful for large screenshots but are not required.
+- `summary` supplies shorter homepage copy; otherwise the card uses `description`.
+- `overview` adds the “What it does” section to the project page.
+- `socialImage` supplies a custom share image; otherwise the shared site image is used.
+
+All image paths start with `/` and resolve under `src/static/`. The build checks
+project IDs, required content, image dimensions, and referenced files. Gallery
+additions require no template, build-script, or test changes.
 
 ## Copper Studio interface
 

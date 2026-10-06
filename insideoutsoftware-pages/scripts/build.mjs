@@ -25,9 +25,39 @@ const source = path.join(root, "src"),
   output = path.join(root, "dist");
 const json = async (name) =>
   JSON.parse(await readFile(path.join(source, "data", name + ".json"), "utf8"));
-const [site, projects, images, news, newsletters] = await Promise.all(
-  ["site", "projects", "images", "demo-news", "demo-newsletters"].map(json),
+const [site, projects, news, newsletters] = await Promise.all(
+  ["site", "projects", "demo-news", "demo-newsletters"].map(json),
 );
+const ids = new Set();
+for (const project of projects) {
+  if (typeof project.id !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(project.id))
+    throw new Error("Invalid project id: " + project.id);
+  if (ids.has(project.id)) throw new Error("Duplicate project id: " + project.id);
+  ids.add(project.id);
+  for (const field of ["title", "category", "description"])
+    if (typeof project[field] !== "string" || !project[field].trim())
+      throw new Error(`Missing ${field} for project: ${project.id}`);
+  if (!Array.isArray(project.technologies) || project.technologies.some(value => typeof value !== "string"))
+    throw new Error("Invalid technologies for project: " + project.id);
+  if (project.type === "imageGallery") {
+    if (!Array.isArray(project.galleryImages) || !project.galleryImages.length)
+      throw new Error("Empty gallery for project: " + project.id);
+  } else if (project.type !== "htmlProject") {
+    throw new Error("Unsupported project type: " + project.type);
+  }
+}
+const images = [
+  site.header.image,
+  ...projects.flatMap(project => project.type === "imageGallery" ? project.galleryImages : [project.image]),
+];
+for (const image of images) {
+  if (!image || typeof image.src !== "string" || !image.src.startsWith("/"))
+    throw new Error("Expected a local image src: " + image?.src);
+  if (typeof image.alt !== "string" || !image.alt.trim())
+    throw new Error("Missing image alt text: " + image.src);
+  if (![image.width, image.height].every(value => Number.isInteger(value) && value > 0))
+    throw new Error("Invalid image dimensions: " + image.src);
+}
 await mkdir(output, { recursive: true });
 const expected = new Set(
   (await walk(path.join(source, "static")))
@@ -48,7 +78,7 @@ for (const route of [
 await cp(path.join(source, "static"), output, { recursive: true });
 await writeFile(
   path.join(output, "index.html"),
-  renderHomePage(site, projects, images),
+  renderHomePage(site, projects),
 );
 await writeFile(path.join(output, "404.html"), renderNotFoundPage(site));
 for (const project of projects) {
@@ -56,7 +86,7 @@ for (const project of projects) {
   await mkdir(directory, { recursive: true });
   await writeFile(
     path.join(directory, "index.html"),
-    renderProjectPage(site, project, images, projects),
+    renderProjectPage(site, project, projects),
   );
   if (project.type === "htmlProject") {
     const renderer = {
@@ -87,24 +117,24 @@ for (const file of files.filter((file) => /\.(html|css)$/.test(file))) {
       );
   for (const reference of references) await assertReference(reference);
 }
-for (const [reference, image] of Object.entries(images)) {
-  await assertReference(reference);
-  await assertReference(image.preview);
-  if (!image.width || !image.height)
-    throw new Error("Missing image dimensions: " + reference);
+for (const image of images) {
+  await assertReference(image.src);
+  if (image.original !== undefined) await assertReference(image.original);
 }
 for (const asset of [
   "/fonts/DM-Sans-OFL.txt",
   "/fonts/Space-Grotesk-OFL.txt",
   "/branding/social-home.png",
   "/branding/news-placeholder.svg",
-  ...projects.map((project) => "/branding/social-" + project.id + ".png"),
+  ...projects.map((project) => project.socialImage).filter(value => value !== undefined),
 ])
   await assertReference(asset);
 console.log(
-  `Built 11 Copper Studio views; validated ${files.length} local files and all referenced assets.`,
+  `Built ${2 + projects.length + projects.filter(project => project.demoPath).length} views; validated ${files.length} local files and all referenced assets.`,
 );
 async function assertReference(reference) {
+  if (typeof reference !== "string" || !reference.startsWith("/"))
+    throw new Error("Expected a local path: " + reference);
   const absolute = path.resolve(output, "." + reference);
   if (absolute !== output && !absolute.startsWith(output + path.sep))
     throw new Error("Invalid local path: " + reference);

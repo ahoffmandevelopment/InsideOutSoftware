@@ -2,15 +2,43 @@
   {
     "id": "pharmacy-app",
     "title": "Pharmacy App",
-    "imgSrc": "/Images/PharmacyApp/pharmacyApp01.png",
-    "imgAlt": "Pharmacy App",
     "description": "A mobile pharmacy app built with Xamarin and .NET MAUI, giving users access to their prescription history and prescription refills.",
     "galleryImages": [
-      "/Images/PharmacyApp/pharmacyApp01.png",
-      "/Images/PharmacyApp/pharmacyApp02.png",
-      "/Images/PharmacyApp/pharmacyApp03.png",
-      "/Images/PharmacyApp/pharmacyApp04.png",
-      "/Images/PharmacyApp/pharmacyApp05.png"
+      {
+        "src": "/Images/PharmacyApp/pharmacyApp01.webp",
+        "original": "/Images/PharmacyApp/pharmacyApp01.png",
+        "alt": "Pharmacy App screenshot 1",
+        "width": 450,
+        "height": 1000
+      },
+      {
+        "src": "/Images/PharmacyApp/pharmacyApp02.webp",
+        "original": "/Images/PharmacyApp/pharmacyApp02.png",
+        "alt": "Pharmacy App screenshot 2",
+        "width": 450,
+        "height": 1000
+      },
+      {
+        "src": "/Images/PharmacyApp/pharmacyApp03.webp",
+        "original": "/Images/PharmacyApp/pharmacyApp03.png",
+        "alt": "Pharmacy App screenshot 3",
+        "width": 450,
+        "height": 1000
+      },
+      {
+        "src": "/Images/PharmacyApp/pharmacyApp04.webp",
+        "original": "/Images/PharmacyApp/pharmacyApp04.png",
+        "alt": "Pharmacy App screenshot 4",
+        "width": 562,
+        "height": 1000
+      },
+      {
+        "src": "/Images/PharmacyApp/pharmacyApp05.webp",
+        "original": "/Images/PharmacyApp/pharmacyApp05.png",
+        "alt": "Pharmacy App screenshot 5",
+        "width": 450,
+        "height": 1000
+      }
     ],
     "type": "imageGallery",
     "category": "Healthcare / Mobile",
@@ -19,20 +47,49 @@
       "Xamarin",
       ".NET MAUI"
     ],
-    "overview": "The app brings prescription history and refill requests to a phone, helping users access these services when they need them."
+    "overview": "The app brings prescription history and refill requests to a phone, helping users access these services when they need them.",
+    "socialImage": "/branding/social-pharmacy-app.png"
   },
   {
     "id": "welldata-mobilert",
     "title": "WellData™ MobileRT",
-    "imgSrc": "/Images/MobileRT/mobilert01.png",
-    "imgAlt": "WellData MobileRT",
     "description": "WellData™ MobileRT is a Xamarin Forms application for monitoring drilling rig information in real time.",
     "galleryImages": [
-      "/Images/MobileRT/mobilert01.png",
-      "/Images/MobileRT/mobilert02.png",
-      "/Images/MobileRT/mobilert03.png",
-      "/Images/MobileRT/mobilert04.png",
-      "/Images/MobileRT/mobilert05.png"
+      {
+        "src": "/Images/MobileRT/mobilert01.webp",
+        "original": "/Images/MobileRT/mobilert01.png",
+        "alt": "WellData™ MobileRT screenshot 1",
+        "width": 562,
+        "height": 1000
+      },
+      {
+        "src": "/Images/MobileRT/mobilert02.webp",
+        "original": "/Images/MobileRT/mobilert02.png",
+        "alt": "WellData™ MobileRT screenshot 2",
+        "width": 562,
+        "height": 1000
+      },
+      {
+        "src": "/Images/MobileRT/mobilert03.webp",
+        "original": "/Images/MobileRT/mobilert03.png",
+        "alt": "WellData™ MobileRT screenshot 3",
+        "width": 562,
+        "height": 1000
+      },
+      {
+        "src": "/Images/MobileRT/mobilert04.webp",
+        "original": "/Images/MobileRT/mobilert04.png",
+        "alt": "WellData™ MobileRT screenshot 4",
+        "width": 562,
+        "height": 1000
+      },
+      {
+        "src": "/Images/MobileRT/mobilert05.webp",
+        "original": "/Images/MobileRT/mobilert05.png",
+        "alt": "WellData™ MobileRT screenshot 5",
+        "width": 562,
+        "height": 1000
+      }
     ],
     "type": "imageGallery",
     "category": "Field operations / Mobile",
@@ -40,22 +97,50 @@
     "technologies": [
       "Xamarin Forms"
     ],
-    "overview": "WellData™ MobileRT presents drilling rig information on a mobile device. Its screens bring real-time operational data and charts together."
+    "overview": "WellData™ MobileRT presents drilling rig information on a mobile device. Its screens bring real-time operational data and charts together.",
+    "socialImage": "/branding/social-welldata-mobilert.png"
   },
   {
     "id": "sharp-remote",
     "title": "Sharp Remote",
-    "imgSrc": "/Images/SharpRemote/sharpremote01.png",
-    "imgAlt": "Sharp Remote",
     "description": "A personal TV remote project that sends commands over WebSockets and stores custom buttons in SQLite.",
     "galleryImages": [
-      "/Images/SharpRemote/sharpremote01.png",
-      "/Images/SharpRemote/sharpremote02.png",
-      "/Images/SharpRemote/sharpremote03.png",
-      "/Images/SharpRemote/sharpremote04.png",
-      "/Images/SharpRemote/sharpremote05.png"
+      {
+        "src": "/Images/SharpRemote/sharpremote01.webp",
+        "original": "/Images/SharpRemote/sharpremote01.png",
+        "alt": "Sharp Remote screenshot 1",
+        "width": 462,
+        "height": 1000
+      },
+      {
+        "src": "/Images/SharpRemote/sharpremote02.webp",
+        "original": "/Images/SharpRemote/sharpremote02.png",
+        "alt": "Sharp Remote screenshot 2",
+        "width": 462,
+        "height": 1000
+      },
+      {
+        "src": "/Images/SharpRemote/sharpremote03.webp",
+        "original": "/Images/SharpRemote/sharpremote03.png",
+        "alt": "Sharp Remote screenshot 3",
+        "width": 462,
+        "height": 1000
+      },
+      {
+        "src": "/Images/SharpRemote/sharpremote04.webp",
+        "original": "/Images/SharpRemote/sharpremote04.png",
+        "alt": "Sharp Remote screenshot 4",
+        "width": 462,
+        "height": 1000
+      },
+      {
+        "src": "/Images/SharpRemote/sharpremote05.webp",
+        "original": "/Images/SharpRemote/sharpremote05.png",
+        "alt": "Sharp Remote screenshot 5",
+        "width": 462,
+        "height": 1000
+      }
     ],
-    "border": true,
     "type": "imageGallery",
     "category": "Personal project / Mobile",
     "summary": "The kids lost the remote. I built an app.",
@@ -63,13 +148,12 @@
       "WebSockets",
       "SQLite"
     ],
-    "overview": "After my kids kept losing the TV remote, I built a remote for a phone. WebSockets send commands to the TV, while a SQLite database stores custom buttons."
+    "overview": "After my kids kept losing the TV remote, I built a remote for a phone. WebSockets send commands to the TV, while a SQLite database stores custom buttons.",
+    "socialImage": "/branding/social-sharp-remote.png"
   },
   {
     "id": "html-glacier",
     "title": "Glacier Melt",
-    "imgSrc": "/Images/GlacierMelt/glaciermelt01.webp",
-    "imgAlt": "Glacier Melt",
     "description": "An interactive dashboard exploring illustrative glacier retreat and meltwater data from 1990 to 2024.",
     "type": "htmlProject",
     "demoPath": "/projects/glacier.html",
@@ -80,13 +164,18 @@
       "CSS",
       "JavaScript"
     ],
-    "overview": "Select a year to explore the glacier illustration, runoff indicators, and data table. The dashboard uses illustrative calculations, rather than live monitoring or actual satellite imagery."
+    "overview": "Select a year to explore the glacier illustration, runoff indicators, and data table. The dashboard uses illustrative calculations, rather than live monitoring or actual satellite imagery.",
+    "socialImage": "/branding/social-html-glacier.png",
+    "image": {
+      "src": "/Images/GlacierMelt/glaciermelt01.webp",
+      "alt": "Glacier Melt",
+      "width": 640,
+      "height": 444
+    }
   },
   {
     "id": "html-news",
     "title": "News Explorer",
-    "imgSrc": "/Images/News/news01.webp",
-    "imgAlt": "News Explorer",
     "description": "A responsive news-interface demonstration featuring sample articles, expandable previews, saved items, and simulated updates.",
     "type": "htmlProject",
     "demoPath": "/projects/news.html",
@@ -97,13 +186,18 @@
       "CSS",
       "JavaScript"
     ],
-    "overview": "Browse sample stories across Politics, Tech, and Sports, expand article previews, and save items locally. New sample articles are inserted every 20 seconds to demonstrate dynamic content; this is not a live news feed."
+    "overview": "Browse sample stories across Politics, Tech, and Sports, expand article previews, and save items locally. New sample articles are inserted every 20 seconds to demonstrate dynamic content; this is not a live news feed.",
+    "socialImage": "/branding/social-html-news.png",
+    "image": {
+      "src": "/Images/News/news01.webp",
+      "alt": "News Explorer",
+      "width": 640,
+      "height": 444
+    }
   },
   {
     "id": "html-newsletterarchive",
     "title": "Newsletter Archive",
-    "imgSrc": "/Images/NewsletterArchive/newsletterarchive01.webp",
-    "imgAlt": "Newsletter Archive",
     "description": "A responsive newsletter archive with search, category and tag filters, date ranges, saved items, and reading previews.",
     "type": "htmlProject",
     "demoPath": "/projects/newsletterarchive.html",
@@ -114,6 +208,13 @@
       "CSS",
       "JavaScript"
     ],
-    "overview": "Explore a local sample newsletter collection with combined search and filters, date ranges, and sorting. Save newsletters in your browser, preview their contents, or open the full reading view."
+    "overview": "Explore a local sample newsletter collection with combined search and filters, date ranges, and sorting. Save newsletters in your browser, preview their contents, or open the full reading view.",
+    "socialImage": "/branding/social-html-newsletterarchive.png",
+    "image": {
+      "src": "/Images/NewsletterArchive/newsletterarchive01.webp",
+      "alt": "Newsletter Archive",
+      "width": 640,
+      "height": 444
+    }
   }
 ]

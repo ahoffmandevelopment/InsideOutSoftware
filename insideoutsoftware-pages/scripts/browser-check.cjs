@@ -9,9 +9,7 @@ const projectData = require("../src/data/projects.json");
 const routes = [
   "/",
   ...projectData.map((p) => "/project/" + p.id + "/"),
-  "/projects/glacier",
-  "/projects/news",
-  "/projects/newsletterarchive",
+  ...projectData.filter(p => p.demoPath).map(p => p.demoPath.replace(/\.html$/, "")),
   "/missing-copper-page",
 ];
 const passed = [],
@@ -87,7 +85,7 @@ async function run() {
   });
   const page = await context.newPage();
   monitor(page);
-  await check("All 11 views at desktop and 375px", async () => {
+  await check("All views at desktop and 375px", async () => {
     for (const width of [1440, 375]) {
       await page.setViewportSize({ width, height: 1000 });
       for (const route of routes) {
@@ -163,7 +161,7 @@ async function run() {
     },
   );
   await check(
-    "All 15 gallery images, arrow keys, touch buttons, focus containment and restoration",
+    "All gallery images, arrow keys, touch buttons, focus containment and restoration",
     async () => {
       for (const width of [1440, 375]) {
         await page.setViewportSize({ width, height: 900 });
@@ -171,12 +169,13 @@ async function run() {
           (p) => p.type === "imageGallery",
         )) {
           await page.goto(base + "/project/" + project.id + "/");
-          for (let index = 0; index < 5; index++) {
+          const count = project.galleryImages.length;
+          for (let index = 0; index < count; index++) {
             const thumbnail = page.locator(".gallery-item").nth(index);
             await thumbnail.click();
             assert.equal(
               await page.locator("[data-viewer-count]").textContent(),
-              index + 1 + " of 5",
+              index + 1 + " of " + count,
             );
             await page
               .locator(".viewer-image img")
@@ -190,23 +189,75 @@ async function run() {
             );
           }
           await page.locator(".gallery-item").first().click();
+          assert.ok(!(await page.locator("[data-viewer-previous]").isEnabled()));
+          for (let index = 1; index < count; index++) {
+            if (index % 2) await page.keyboard.press("ArrowRight");
+            else await page.locator("[data-viewer-next]").click();
+            assert.equal(await page.locator("[data-viewer-count]").textContent(), (index + 1) + " of " + count);
+          }
+          assert.ok(!(await page.locator("[data-viewer-next]").isEnabled()));
           await page.keyboard.press("ArrowRight");
-          assert.equal(
-            await page.locator("[data-viewer-count]").textContent(),
-            "2 of 5",
-          );
-          await page.locator("[data-viewer-next]").click();
-          assert.equal(
-            await page.locator("[data-viewer-count]").textContent(),
-            "3 of 5",
-          );
+          assert.equal(await page.locator("[data-viewer-count]").textContent(), count + " of " + count);
+          for (let index = count - 2; index >= 0; index--) {
+            if (index % 2) await page.keyboard.press("ArrowLeft");
+            else await page.locator("[data-viewer-previous]").click();
+            assert.equal(await page.locator("[data-viewer-count]").textContent(), (index + 1) + " of " + count);
+          }
           await page.keyboard.press("ArrowLeft");
-          assert.equal(
-            await page.locator("[data-viewer-count]").textContent(),
-            "2 of 5",
-          );
+          assert.equal(await page.locator("[data-viewer-count]").textContent(), "1 of " + count);
           await page.locator("[data-viewer-close]").click();
         }
+      }
+    },
+  );
+  await check(
+    "Galleries with one, two, or seven screenshots work without optional fields",
+    async () => {
+      const { renderProjectPage } = await import("../src/templates/render.mjs");
+      const site = require("../src/data/site.json");
+      const examples = projectData.find(project => project.type === "imageGallery").galleryImages;
+      const url = base + "/gallery-fixture";
+      for (const count of [1, 2, 7]) {
+        const project = {
+          id: "gallery-fixture",
+          type: "imageGallery",
+          title: "Gallery fixture",
+          category: "Mobile",
+          description: "A project added through data alone.",
+          technologies: [],
+          galleryImages: Array.from({ length: count }, (_, index) => {
+            const image = { ...examples[index % examples.length] };
+            if (index % 2 === 0) delete image.original;
+            return image;
+          }),
+        };
+        await page.route(url, route => route.fulfill({
+          contentType: "text/html",
+          body: renderProjectPage(site, project, [...projectData, project]),
+        }));
+        await page.goto(url);
+        assert.equal(await page.locator(".gallery-item").count(), count);
+        await page.locator(".gallery-item").first().click();
+        for (let index = 0; index < count; index++) {
+          const image = project.galleryImages[index];
+          assert.equal(await page.locator("[data-viewer-count]").textContent(), (index + 1) + " of " + count);
+          assert.equal(await page.locator("[data-viewer-previous]").isEnabled(), index > 0);
+          assert.equal(await page.locator("[data-viewer-next]").isEnabled(), index < count - 1);
+          assert.equal(await page.locator(".viewer-image img").getAttribute("src"), base + (image.original ?? image.src));
+          assert.equal(await page.locator(".viewer-image img").getAttribute("alt"), image.alt);
+          await page.keyboard.press("ArrowRight");
+        }
+        assert.equal(await page.locator("[data-viewer-count]").textContent(), count + " of " + count);
+        for (let index = count - 2; index >= 0; index--) {
+          await page.keyboard.press("ArrowLeft");
+          assert.equal(await page.locator("[data-viewer-count]").textContent(), (index + 1) + " of " + count);
+        }
+        await page.keyboard.press("ArrowLeft");
+        assert.equal(await page.locator("[data-viewer-count]").textContent(), "1 of " + count);
+        await page.keyboard.press("Escape");
+        await page.locator(".image-viewer").waitFor({ state: "hidden" });
+        assert.ok(await page.locator(".gallery-item").first().evaluate(element => element === document.activeElement));
+        await page.unroute(url);
       }
     },
   );
@@ -633,8 +684,13 @@ async function run() {
     async () => {
       const ctx = await browser.newContext({ javaScriptEnabled: false });
       const tab = await ctx.newPage();
-      await tab.goto(base + "/project/pharmacy-app/");
-      assert.equal(await tab.locator(".gallery-item[href]").count(), 5);
+      for (const project of projectData.filter(p => p.type === "imageGallery")) {
+        await tab.goto(base + "/project/" + project.id + "/");
+        assert.deepEqual(
+          await tab.locator(".gallery-item[href]").evaluateAll(elements => elements.map(element => element.getAttribute("href"))),
+          project.galleryImages.map(image => image.original ?? image.src),
+        );
+      }
       await tab.goto(base + "/project/html-news/");
       assert.ok(await tab.locator(".demo-preview").isVisible());
       assert.equal(await tab.locator("iframe").getAttribute("src"), null);

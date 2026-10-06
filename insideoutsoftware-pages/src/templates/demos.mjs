@@ -9,7 +9,7 @@ function demoPage(site, project, body, script, data) {
     title: `${project.title} demo | Inside Out Software`,
     description: project.description,
     path: demoUrl(project),
-    image: `/branding/social-${project.id}.png`,
+    image: project.socialImage,
     body: content,
     demo: true,
   });
